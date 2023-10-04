@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Entity
@@ -96,7 +97,7 @@ public class Sto extends BaseEntity {
         sto.urgeContent = urgeContent;
         sto.enforceContent = enforceContent;
         sto.memo = memo;
-        sto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
+        sto.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
         sto.lto = lto;
         return sto;
     }
@@ -109,7 +110,7 @@ public class Sto extends BaseEntity {
     // update STO status when sto status is "hit"
     public void updateStoHitStatus(String status) {
         this.status = status;
-        this.hitGoalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));;
+        this.hitGoalDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
     }
 
     // update STO contents -> 명확하게 정의 필요

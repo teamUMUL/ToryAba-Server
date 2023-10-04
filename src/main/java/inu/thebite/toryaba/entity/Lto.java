@@ -6,6 +6,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Entity
@@ -57,7 +58,7 @@ public class Lto extends BaseEntity {
         lto.name = name;
         lto.content = content;
         lto.achieveDate = "Not yet";
-        lto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
+        lto.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
         lto.delYN = "N";
         lto.domain = domain;
         return lto;
@@ -65,5 +66,10 @@ public class Lto extends BaseEntity {
 
     public void updateLtoStatus(String status) {
         this.status = status;
+    }
+
+    public void updateLtoHitStatus(String status) {
+        this.status = status;
+        this.achieveDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
     }
 }

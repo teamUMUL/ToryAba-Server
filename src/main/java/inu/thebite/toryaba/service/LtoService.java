@@ -16,4 +16,6 @@ public interface LtoService {
     List<Lto> getLtoList(int domainNumber);
 
     void deleteLto(int domainNumber, int ltoNumber);
+
+    Lto updateLtoHitStatus(int domainNumber, int ltoNumber, UpdateLtoStatusRequest updateLtoStatusRequest);
 }
