@@ -51,7 +51,7 @@ public class LtoServiceImpl implements LtoService {
         Domain domain = domainRepository.findByTemplateNumber(domainNumber)
                 .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
 
-        List<Lto> LtoList = ltoRepository.findLtoByDomainId(domainNumber);
+        List<Lto> LtoList = ltoRepository.findLtoByDomainSeq(domainNumber);
         return LtoList;
     }
 

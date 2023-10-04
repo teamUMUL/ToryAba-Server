@@ -85,13 +85,17 @@ public class Sto extends BaseEntity {
     @JoinColumn(name = "lto_seq")
     private Lto lto;
 
-    public static Sto createSto(int templateNum, String name, String content, int count, int goal, Lto lto) {
+    public static Sto createSto(int templateNum, String name, String content, int count, int goal, String urgeType, String urgeContent, String enforceContent, String memo, Lto lto) {
         Sto sto  = new Sto();
         sto.templateNum = templateNum;
         sto.name = name;
         sto.contents = content;
         sto.count = count;
         sto.goal = goal;
+        sto.urgeType = urgeType;
+        sto.urgeContent = urgeContent;
+        sto.enforceContent = enforceContent;
+        sto.memo = memo;
         sto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
         sto.lto = lto;
         return sto;
@@ -108,7 +112,7 @@ public class Sto extends BaseEntity {
         this.hitGoalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));;
     }
 
-    // update STO contents
+    // update STO contents -> 명확하게 정의 필요
     public void updateSto(String urgeType, String urgeContent, String enforceContent, String memo) {
         this.urgeType = urgeType;
         this.urgeContent = urgeContent;

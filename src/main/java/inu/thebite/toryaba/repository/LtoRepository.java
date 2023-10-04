@@ -15,7 +15,7 @@ public interface LtoRepository extends JpaRepository<Lto, Long> {
 
     // * 말고 필요한 내용만 가져올 수 있도록 수정
     @Query(value = "SELECT * FROM tb_lto WHERE domain_seq = :domainNumber", nativeQuery = true)
-    List<Lto> findLtoByDomainId(int domainNumber);
+    List<Lto> findLtoByDomainSeq(int domainNumber);
 
     void deleteByTemplateNum(int ltoNumber);
 }
