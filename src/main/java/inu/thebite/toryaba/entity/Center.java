@@ -17,4 +17,10 @@ public class Center extends BaseEntity {
 
     @Column(name = "center_name", length = 45, nullable = false)
     private String name;
+
+    public static Center createCenter(String name) {
+        Center center = new Center();
+        center.name = name;
+        return center;
+    }
 }
