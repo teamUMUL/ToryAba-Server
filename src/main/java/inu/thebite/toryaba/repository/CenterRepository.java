@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public interface CenterRepository extends JpaRepository<Center, Long> {
-    Optional<Center> findByCenterName(String name);
+    Optional<Center> findByName(String name);
 
     void deleteByName(String name);
 }

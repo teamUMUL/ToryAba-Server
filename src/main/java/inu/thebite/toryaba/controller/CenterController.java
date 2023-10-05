@@ -7,10 +7,9 @@ import inu.thebite.toryaba.service.CenterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -30,5 +29,12 @@ public class CenterController {
     public ResponseEntity deleteCenter(@RequestBody CenterRequest centerRequest) {
         centerService.deleteCenter(centerRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // get center list
+    @GetMapping("/center/list")
+    public ResponseEntity getCenterList() {
+        List<Center> centerList = centerService.getCenterList();
+        return ResponseEntity.ok(centerList);
     }
 }
