@@ -12,6 +12,8 @@ import org.mockito.BDDMockito;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -53,13 +55,11 @@ class CenterServiceImplTest {
         // given
         CenterRequest centerRequest = new CenterRequest();
         centerRequest.setName("송도점");
-        Center center = Center.createCenter("송도점");
-        given(centerRepository.save(any())).willReturn(center);
         centerService.addCenter(centerRequest);
-        centerRequest.setName("부평점");
-        Center center2 = Center.createCenter("부평점");
-        given(centerRepository.save(any())).willReturn(center2);
-        centerService.addCenter(centerRequest);
+
+        CenterRequest centerRequest1 = new CenterRequest();
+        centerRequest1.setName("부평점");
+        centerService.addCenter(centerRequest1);
 
         // when
         List<Center> centerList = centerService.getCenterList();

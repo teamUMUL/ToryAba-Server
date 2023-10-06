@@ -25,9 +25,10 @@ public class CenterServiceImpl implements CenterService {
         return center;
     }
 
+    @Transactional
     @Override
     public void deleteCenter(CenterRequest centerRequest) {
-        if(centerRepository.findByName(centerRequest.getName()).isPresent()) {
+        if(!centerRepository.findByName(centerRequest.getName()).isPresent()) {
             throw new IllegalStateException("존재하지 않는 센터입니다.");
         } else {
             centerRepository.deleteByName(centerRequest.getName());
