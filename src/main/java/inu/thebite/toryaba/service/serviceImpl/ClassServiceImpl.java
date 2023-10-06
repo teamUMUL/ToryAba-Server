@@ -44,10 +44,12 @@ public class ClassServiceImpl implements ClassService {
     @Transactional
     @Override
     public void deleteClass(String centerName, String className) {
-        if(!centerRepository.findByName(centerName).isPresent()) {
-            throw new IllegalStateException("해당하는 센터가 존재하지 않습니다.");
-        } else {
-            classRepository.deleteByClassName(className);
-        }
+        centerRepository.findByName(centerName).
+                orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
+
+        classRepository.findByName(className)
+                        .orElseThrow(() -> new IllegalStateException("해당 반이 존재하지 않습니다."));
+
+        classRepository.deleteByName(className);
     }
 }
