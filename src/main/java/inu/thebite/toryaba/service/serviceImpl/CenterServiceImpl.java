@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CenterServiceImpl implements CenterService {
@@ -23,13 +25,19 @@ public class CenterServiceImpl implements CenterService {
         return center;
     }
 
+    @Transactional
     @Override
-    public void deleteCenter(CenterRequest centerRequest) {
-
-        if(centerRepository.findByCenterName(centerRequest.getName()).isPresent()) {
+    public void deleteCenter(String centerName) {
+        if(!centerRepository.findByName(centerName).isPresent()) {
             throw new IllegalStateException("존재하지 않는 센터입니다.");
         } else {
-            centerRepository.deleteByName(centerRequest.getName());
+            centerRepository.deleteByName(centerName);
         }
+    }
+
+    @Override
+    public List<Center> getCenterList() {
+        List<Center> centerList = centerRepository.findAll();
+        return centerList;
     }
 }
