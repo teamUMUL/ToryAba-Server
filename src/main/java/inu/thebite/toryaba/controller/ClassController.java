@@ -18,23 +18,23 @@ public class ClassController {
     private final ClassService classService;
 
     // add class
-    @PostMapping("/{centerName}/class/add")
-    public ResponseEntity addClass(@PathVariable String centerName, @RequestBody AddClassRequest addClassRequest) {
-        Class newClass = classService.addClass(centerName, addClassRequest);
+    @PostMapping("/{centerId}/class/add")
+    public ResponseEntity addClass(@PathVariable Long centerId, @RequestBody AddClassRequest addClassRequest) {
+        Class newClass = classService.addClass(centerId, addClassRequest);
         return ResponseEntity.ok(newClass);
     }
 
     // get class list
-    @GetMapping("/{centerName}/class/list")
-    public ResponseEntity getClassList(@PathVariable String centerName) {
-        List<Class> classList = classService.getClassList(centerName);
+    @GetMapping("/{centerId}/class/list")
+    public ResponseEntity getClassList(@PathVariable Long centerId) {
+        List<Class> classList = classService.getClassList(centerId);
         return ResponseEntity.ok(classList);
     }
 
     // delete class
-    @DeleteMapping("/{centerName}/class/{className}/delete")
-    public ResponseEntity deleteClass(@PathVariable String centerName, @PathVariable String className) {
-        classService.deleteClass(centerName, className);
+    @DeleteMapping("/{centerId}/class/{classId}/delete")
+    public ResponseEntity deleteClass(@PathVariable Long centerId, @PathVariable Long classId) {
+        classService.deleteClass(centerId, classId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

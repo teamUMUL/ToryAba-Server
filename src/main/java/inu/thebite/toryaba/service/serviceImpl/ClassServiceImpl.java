@@ -22,8 +22,8 @@ public class ClassServiceImpl implements ClassService {
 
     @Transactional
     @Override
-    public Class addClass(String centerName, AddClassRequest addClassRequest) {
-        Center center = centerRepository.findByName(centerName)
+    public Class addClass(Long centerId, AddClassRequest addClassRequest) {
+        Center center = centerRepository.findById(centerId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
 
         Class newClass = Class.createClass(addClassRequest.getName(), center);
@@ -31,25 +31,24 @@ public class ClassServiceImpl implements ClassService {
         return newClass;
     }
 
-
     @Override
-    public List<Class> getClassList(String centerName) {
-        centerRepository.findByName(centerName)
+    public List<Class> getClassList(Long centerId) {
+        centerRepository.findById(centerId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
 
-        List<Class> classList = classRepository.findAll();
+        List<Class> classList = classRepository.findAllByCenterId(centerId);
         return classList;
     }
 
     @Transactional
     @Override
-    public void deleteClass(String centerName, String className) {
-        centerRepository.findByName(centerName).
+    public void deleteClass(Long centerId, Long classId) {
+        centerRepository.findById(centerId).
                 orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
 
-        classRepository.findByName(className)
+        classRepository.findById(classId)
                         .orElseThrow(() -> new IllegalStateException("해당 반이 존재하지 않습니다."));
 
-        classRepository.deleteByName(className);
+        classRepository.deleteById(classId);
     }
 }

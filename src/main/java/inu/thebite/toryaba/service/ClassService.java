@@ -6,9 +6,9 @@ import inu.thebite.toryaba.model.center.AddClassRequest;
 import java.util.List;
 
 public interface ClassService {
-    Class addClass(String centerName, AddClassRequest addClassRequest);
+    Class addClass(Long centerId, AddClassRequest addClassRequest);
 
-    void deleteClass(String centerName, String className);
+    void deleteClass(Long centerId, Long classId);
 
-    List<Class> getClassList(String centerName);
+    List<Class> getClassList(Long centerId);
 }
