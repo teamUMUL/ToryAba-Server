@@ -14,8 +14,8 @@ public class StoController {
     private final StoService stoService;
 
     // add STO
-    @PostMapping("/{ltoNumber}/sto/add")
-    public ResponseEntity addSto(@PathVariable int ltoNumber, )
+//    @PostMapping("/{ltoNumber}/sto/add")
+//    public ResponseEntity addSto(@PathVariable int ltoNumber, )
 
     // modified STO status
 
