@@ -25,9 +25,9 @@ public class CenterController {
     }
 
     // delete center
-    @DeleteMapping("/center/delete")
-    public ResponseEntity deleteCenter(@RequestBody CenterRequest centerRequest) {
-        centerService.deleteCenter(centerRequest);
+    @DeleteMapping("/center/{centerName}/delete")
+    public ResponseEntity deleteCenter(@PathVariable String centerName) {
+        centerService.deleteCenter(centerName);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

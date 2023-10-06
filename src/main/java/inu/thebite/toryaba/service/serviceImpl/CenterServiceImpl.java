@@ -27,11 +27,11 @@ public class CenterServiceImpl implements CenterService {
 
     @Transactional
     @Override
-    public void deleteCenter(CenterRequest centerRequest) {
-        if(!centerRepository.findByName(centerRequest.getName()).isPresent()) {
+    public void deleteCenter(String centerName) {
+        if(!centerRepository.findByName(centerName).isPresent()) {
             throw new IllegalStateException("존재하지 않는 센터입니다.");
         } else {
-            centerRepository.deleteByName(centerRequest.getName());
+            centerRepository.deleteByName(centerName);
         }
     }
 
