@@ -3,7 +3,7 @@ package inu.thebite.toryaba.model.center;
 import lombok.Data;
 
 @Data
-public class ClassRequest {
+public class AddClassRequest {
 
     private String name;
 }
