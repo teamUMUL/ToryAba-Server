@@ -80,7 +80,7 @@ class CenterServiceImplTest {
         centerService.addCenter(centerRequest);
 
         // when
-        centerService.deleteCenter(centerRequest);
+        centerService.deleteCenter(centerRequest.getName());
 
         // then
         List<Center> result = centerRepository.findAll();
