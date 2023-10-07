@@ -48,9 +48,8 @@ public class Sto extends BaseEntity {
     private int goalPercent;
 
     // 단기 목표 도달 여부
-    @ColumnDefault("N")
     @Column(name = "sto_arr_yn", nullable = false, length = 1)
-    private int achievementOrNot;
+    private String achievementOrNot;
 
     // 촉구 타입
     @Column(name = "sto_urge_tp_cd", length = 3)
@@ -69,7 +68,6 @@ public class Sto extends BaseEntity {
     private String memo;
 
     // 단기 목표 도달 일자
-    @ColumnDefault("")
     @Column(name = "sto_arr_dt")
     private String hitGoalDate;
 
@@ -78,7 +76,6 @@ public class Sto extends BaseEntity {
     private String registerDate;
 
     // 삭제 여부
-    @ColumnDefault("N")
     @Column(name = "del_yn", nullable = false, length = 1)
     private String delYN;
 
@@ -93,11 +90,14 @@ public class Sto extends BaseEntity {
         sto.contents = content;
         sto.count = count;
         sto.goal = goal;
+        sto.achievementOrNot = "N";
         sto.urgeType = urgeType;
         sto.urgeContent = urgeContent;
         sto.enforceContent = enforceContent;
         sto.memo = memo;
+        sto.hitGoalDate = "";
         sto.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm:ss"));
+        sto.delYN = "N";
         sto.lto = lto;
         return sto;
     }
