@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class StudentController {
@@ -33,12 +35,19 @@ public class StudentController {
     }
 
     // update endDate
-    @PatchMapping("/{classId}/student/{studentId}/startDate/update")
+    @PatchMapping("/{classId}/student/{studentId}/endDate/update")
     public ResponseEntity updateStudentEndDate(@PathVariable Long classId,
                                                  @PathVariable Long studentId,
                                                  @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
         Student student = studentService.updateStudentEndDate(classId, studentId, updateStudentDateRequest);
         return ResponseEntity.ok(student);
+    }
+
+    // get student list
+    @GetMapping("/{classId}/student/list")
+    public ResponseEntity getStudentList(@PathVariable Long classId) {
+        List<Student> studentList = studentService.getStudentList(classId);
+        return ResponseEntity.ok(studentList);
     }
 
     // delete student

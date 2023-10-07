@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
@@ -30,6 +32,7 @@ public class StudentServiceImpl implements StudentService {
         return student;
     }
 
+    @Transactional
     @Override
     public Student updateStudentStartDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
         classRepository.findById(classId)
@@ -42,6 +45,7 @@ public class StudentServiceImpl implements StudentService {
         return student;
     }
 
+    @Transactional
     @Override
     public Student updateStudentEndDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
         classRepository.findById(classId)
@@ -55,11 +59,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
+    public List<Student> getStudentList(Long classId) {
+        classRepository.findById(classId)
+                .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
+
+        List<Student> studentList = studentRepository.findAllByToryClassId(classId);
+        return studentList;
+    }
+
+    @Override
     public void deleteStudent(Long classId, Long studentId) {
-        if(classRepository.findById(classId).isPresent()) {
+        if(!classRepository.findById(classId).isPresent()) {
             throw new IllegalStateException("해당 반은 존재하지 않습니다.");
         }
-        if(studentRepository.findById(studentId).isPresent()) {
+        if(!studentRepository.findById(studentId).isPresent()) {
             throw new IllegalStateException("해당 아이의 대한 정보가 존재하지 않습니다.");
         }
         studentRepository.deleteById(studentId);
