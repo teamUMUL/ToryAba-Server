@@ -21,8 +21,8 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     @Override
-    public Student addStudent(String className, AddStudentRequest addStudentRequest) {
-        Class findClass = classRepository.findByClassName(className)
+    public Student addStudent(Long classId, AddStudentRequest addStudentRequest) {
+        Class findClass = classRepository.findById(classId)
                 .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
 
         Student student = Student.createStudent(addStudentRequest.getName(), addStudentRequest.getBirth(), addStudentRequest.getEtc(), addStudentRequest.getParentName(), addStudentRequest.getStartDate(), findClass);
@@ -31,8 +31,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudentStartDate(String className, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
-        classRepository.findByClassName(className)
+    public Student updateStudentStartDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
+        classRepository.findById(classId)
                 .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
 
         Student student = studentRepository.findById(studentId)
@@ -43,8 +43,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public Student updateStudentEndDate(String className, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
-        classRepository.findByClassName(className)
+    public Student updateStudentEndDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
+        classRepository.findById(classId)
                 .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
 
         Student student = studentRepository.findById(studentId)
@@ -55,8 +55,8 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void deleteStudent(String className, Long studentId) {
-        if(classRepository.findByClassName(className).isPresent()) {
+    public void deleteStudent(Long classId, Long studentId) {
+        if(classRepository.findById(classId).isPresent()) {
             throw new IllegalStateException("해당 반은 존재하지 않습니다.");
         }
         if(studentRepository.findById(studentId).isPresent()) {

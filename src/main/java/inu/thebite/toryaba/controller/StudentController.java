@@ -17,34 +17,34 @@ public class StudentController {
     private final StudentService studentService;
 
     // add student
-    @PostMapping("/{className}/student/add")
-    public ResponseEntity addStudent(@PathVariable String className, @RequestBody AddStudentRequest addStudentRequest) {
-        Student student = studentService.addStudent(className, addStudentRequest);
+    @PostMapping("/{classId}/student/add")
+    public ResponseEntity addStudent(@PathVariable Long classId, @RequestBody AddStudentRequest addStudentRequest) {
+        Student student = studentService.addStudent(classId, addStudentRequest);
         return ResponseEntity.ok(student);
     }
 
     // update startDate
-    @PatchMapping("/{className}/student/{studentId}/startDate/update")
-    public ResponseEntity updateStudentStartDate(@PathVariable String className,
+    @PatchMapping("/{classId}/student/{studentId}/startDate/update")
+    public ResponseEntity updateStudentStartDate(@PathVariable Long classId,
                                                  @PathVariable Long studentId,
                                                  @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
-        Student student = studentService.updateStudentStartDate(className, studentId, updateStudentDateRequest);
+        Student student = studentService.updateStudentStartDate(classId, studentId, updateStudentDateRequest);
         return ResponseEntity.ok(student);
     }
 
     // update endDate
-    @PatchMapping("/{className}/student/{studentId}/startDate/update")
-    public ResponseEntity updateStudentEndDate(@PathVariable String className,
+    @PatchMapping("/{classId}/student/{studentId}/startDate/update")
+    public ResponseEntity updateStudentEndDate(@PathVariable Long classId,
                                                  @PathVariable Long studentId,
                                                  @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
-        Student student = studentService.updateStudentEndDate(className, studentId, updateStudentDateRequest);
+        Student student = studentService.updateStudentEndDate(classId, studentId, updateStudentDateRequest);
         return ResponseEntity.ok(student);
     }
 
     // delete student
-    @DeleteMapping("/{className}/student/{studentId}/delete")
-    public ResponseEntity deleteStudent(@PathVariable String className, @PathVariable Long studentId) {
-        studentService.deleteStudent(className, studentId);
+    @DeleteMapping("/{classId}/student/{studentId}/delete")
+    public ResponseEntity deleteStudent(@PathVariable Long classId, @PathVariable Long studentId) {
+        studentService.deleteStudent(classId, studentId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
