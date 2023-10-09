@@ -24,12 +24,21 @@ public class LtoController {
         return ResponseEntity.ok(lto);
     }
 
-    // modified LTO status
+    // modified LTO status(stop, in progress)
     @PatchMapping("/{domainId}/lto/{ltoId}/update/status")
     public ResponseEntity<Lto> updateStatus(@PathVariable Long domainId,
                                             @PathVariable Long ltoId,
                                             @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoStatus(domainId, ltoId, updateLtoStatusRequest);
+        return ResponseEntity.ok(updateLto);
+    }
+
+    //modified LTO status(hit)
+    @PatchMapping("/{domainId}/lto/{ltoId}/hit/update/status")
+    public ResponseEntity updateHitStatus(@PathVariable Long domainId,
+                                          @PathVariable Long ltoId,
+                                          @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
+        Lto updateLto = ltoService.updateLtoHitStatus(domainId, ltoId, updateLtoStatusRequest);
         return ResponseEntity.ok(updateLto);
     }
 

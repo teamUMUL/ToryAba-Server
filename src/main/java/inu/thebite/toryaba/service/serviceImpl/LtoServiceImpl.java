@@ -46,6 +46,17 @@ public class LtoServiceImpl implements LtoService {
         return lto;
     }
 
+    @Transactional
+    @Override
+    public Lto updateLtoHitStatus(Long domainId, Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest) {
+        domainRepository.findById(domainId)
+                .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
+        Lto lto = ltoRepository.findById(ltoId)
+                .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
+        lto.updateLtoHitStatus(updateLtoStatusRequest.getStatus());
+        return lto;
+    }
+
     @Override
     public List<Lto> getLtoList(Long domainId) {
         Domain domain = domainRepository.findById(domainId)

@@ -63,7 +63,14 @@ public class Lto extends BaseEntity {
         return lto;
     }
 
+    // update LTO status when LTO status is stop or in progress
     public void updateLtoStatus(String status) {
         this.status = status;
+    }
+
+    // update LTO status when LTO status is hit
+    public void updateLtoHitStatus(String status) {
+        this.status = status;
+        this.achieveDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 }

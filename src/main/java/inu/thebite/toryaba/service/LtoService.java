@@ -16,4 +16,6 @@ public interface LtoService {
     List<Lto> getLtoList(Long domainId);
 
     void deleteLto(Long domainId, Long ltoId);
+
+    Lto updateLtoHitStatus(Long domainId, Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
 }
