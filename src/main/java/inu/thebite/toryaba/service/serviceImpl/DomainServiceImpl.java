@@ -6,6 +6,7 @@ import inu.thebite.toryaba.repository.DomainRepository;
 import inu.thebite.toryaba.service.DomainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -29,6 +30,7 @@ public class DomainServiceImpl implements DomainService {
         return domainList;
     }
 
+    @Transactional
     @Override
     public void deleteDomain(int templateNum) {
         Domain domain = domainRepository.findByTemplateNumber(templateNum).
