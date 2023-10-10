@@ -4,7 +4,6 @@ package inu.thebite.toryaba.entity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -40,15 +39,18 @@ public class Point extends BaseEntity {
     @JoinColumn(name = "sto_seq")
     private Sto sto;
 
+    @ManyToOne
+    @JoinColumn(name = "student_seq")
+    private Student student;
 
-
-    public static Point createPoint(int round, String result, String registrant, Sto sto) {
+    public static Point createPoint(int round, String result, String registrant, Sto sto, Student student) {
         Point point = new Point();
         point.round = round;
         point.result = result;
         point.registrant = registrant;
         point.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         point.sto = sto;
+        point.student = student;
         return point;
     }
 }
