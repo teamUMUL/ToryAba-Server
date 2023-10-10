@@ -37,7 +37,7 @@ public class PointServiceImpl implements PointService {
         List<String> points = addPointRequest.getPoints();
 
         for(String point: points) {
-            Point createPoint = Point.createPoint(addPointRequest.getRound(), point, addPointRequest.getRegistrant(), sto);
+            Point createPoint = Point.createPoint(addPointRequest.getRound(), point, addPointRequest.getRegistrant(), sto, student);
             pointRepository.save(createPoint);
         }
 
