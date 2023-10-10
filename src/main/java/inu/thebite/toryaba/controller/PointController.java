@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 public class PointController {
@@ -23,5 +25,11 @@ public class PointController {
     }
 
     // get point list
-    @GetMapping("/{stoId}")
+    @GetMapping("/{studentId}/sto/{stoId}/{round}/point/list")
+    public ResponseEntity getPointList(@PathVariable Long stoId,
+                                       @PathVariable Long studentId,
+                                       @PathVariable int round) {
+        List<String> pointList = pointService.getPointList(stoId, studentId, round);
+        return ResponseEntity.ok(pointList);
+    }
 }

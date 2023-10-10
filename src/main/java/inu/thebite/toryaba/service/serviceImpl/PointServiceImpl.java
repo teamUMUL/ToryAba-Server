@@ -40,6 +40,18 @@ public class PointServiceImpl implements PointService {
             Point createPoint = Point.createPoint(addPointRequest.getRound(), point, addPointRequest.getRegistrant(), sto, student);
             pointRepository.save(createPoint);
         }
+    }
 
+    @Override
+    public List<String> getPointList(Long stoId, Long studentId, int round) {
+
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("해당 학생이 존재하지 않습니다."));
+
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        List<String> result = pointRepository.findByStudentIdAndStoIdAndRound(sto.getId(), student.getId(), round);
+        return result;
     }
 }
