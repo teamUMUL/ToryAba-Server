@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 public interface PointRepository extends JpaRepository<Point, Long> {
 
-    @Query(value = "SELECT point_rslt_cd FROM tb_point WHERE sto_seq = :stoId and student_seq = :studentId and point_round = :round", nativeQuery = true)
+    @Query(value = "SELECT point_rslt_cd FROM tb_point WHERE sto_seq = :stoId and student_seq = :studentId and point_round = :round ORDER BY point_seq", nativeQuery = true)
     List<String> findByStudentIdAndStoIdAndRound(Long stoId, Long studentId, int round);
 }
