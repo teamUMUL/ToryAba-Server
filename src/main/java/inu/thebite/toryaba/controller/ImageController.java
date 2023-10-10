@@ -1,6 +1,7 @@
 package inu.thebite.toryaba.controller;
 
 
+import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.model.image.AddImageRequest;
 import inu.thebite.toryaba.service.ImageService;
 import lombok.RequiredArgsConstructor;
@@ -19,13 +20,14 @@ public class ImageController {
     // add image (only one)
     @PostMapping("/image/add")
     public ResponseEntity addImage(AddImageRequest addImageRequest) {
-        imageService.addImage(addImageRequest)
+        Image image = imageService.addImage(addImageRequest);
+        return ResponseEntity.ok(image);
     }
 
     // delete image (only one)
     @DeleteMapping("/image/{imageId}/delete")
-    public ResponseEntity deleteImage(@PathVariable Long imageId) {
-        imageService.deleteImage(imageId)
+    public void deleteImage(@PathVariable Long imageId) {
+//        imageService.deleteImage(imageId)
     }
 
 }
