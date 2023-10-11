@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 
+
 @Service
 @RequiredArgsConstructor
 public class ImageServiceImpl implements ImageService {
@@ -34,39 +35,55 @@ public class ImageServiceImpl implements ImageService {
         Category category = categoryRepository.findByName(addImageRequest.getCategoryName())
                 .orElseThrow(() -> new IllegalStateException("해당 카테고리가 존재하지 않습니다."));
 
+        String imageName = setImageName(category);
         String imageUrl = uploadImage(addImageRequest.getImage(), category);
-        Image image = Image.createImage(imageUrl, category);
+        Image image = Image.createImage(imageUrl, imageName, category);
         imageRepository.save(image);
         return image;
     }
 
     @Transactional
     @Override
-    public void deleteImage(Long imageId) {
-        if(imageRepository.findById(imageId).isPresent()) {
-            imageRepository.deleteById(imageId);
+    public void deleteImage(Long categoryId, String imageName) {
 
-            // 클라우드에 저장되어 있는 사진도 삭제하는 로직 필요
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new IllegalStateException("해당 카테고리가 존재하지 않습니다."));
+
+        Storage storage = StorageOptions.getDefaultInstance().getService();
+
+        if(imageRepository.findByName(imageName).isPresent()) {
+
+            // delete image to gcs
+            Blob image = storage.get(bucketName, category.getName() + "/" + imageName);
+            if (image == null) {
+                System.out.println("The image "+ imageName + " wasn't found in " + category.getName());
+            }
+
+            // Optional: set a generation-match precondition to avoid potential race
+            // conditions and data corruptions. The request to upload returns a 412 error if
+            // the object's generation number does not match your precondition.
+            Storage.BlobSourceOption precondition = Storage.BlobSourceOption.generationMatch(image.getGeneration());
+            storage.delete(bucketName, category.getName() + "/" + imageName, precondition);
+
+            // delete image to DB
+            imageRepository.deleteByName(imageName);
 
         } else {
             throw new IllegalStateException("해당하는 이미지가 존재하지 않습니다.");
         }
     }
 
+
     @Override
     public String uploadImage(MultipartFile image, Category category) {
 
         Storage storage = StorageOptions.getDefaultInstance().getService();
-
-        // 이미지 저장
-        List<Image> result = imageRepository.findAllByCategoryId(category.getId());
-        String number = Integer.toString(result.size() + 1);
-
-        String name = category.getName() + "/" + category.getName() + "_" + number;
+        String imageName = setName(category);
         String contentType = image.getContentType();
 
+        // save image
         try {
-            BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, name).setContentType(contentType).build();
+            BlobInfo blobInfo = BlobInfo.newBuilder(bucketName, imageName).setContentType(contentType).build();
             Blob uploadImage = storage.createFrom(blobInfo, image.getInputStream());
             String imageUrl = uploadImage.getMediaLink();
             return imageUrl;
@@ -75,5 +92,23 @@ public class ImageServiceImpl implements ImageService {
             e.printStackTrace();
             return e.getMessage();
         }
+    }
+
+    @Override
+    public String setImageName(Category category) {
+        List<Image> result = imageRepository.findAllByCategoryId(category.getId());
+        String number = Integer.toString(result.size() + 1);
+
+        String name = category.getName() + "_" + number;
+        return name;
+    }
+
+    @Override
+    public String setName(Category category) {
+        List<Image> result = imageRepository.findAllByCategoryId(category.getId());
+        String number = Integer.toString(result.size() + 1);
+
+        String name = category.getName() + "/" + category.getName() + "_" + number;
+        return name;
     }
 }

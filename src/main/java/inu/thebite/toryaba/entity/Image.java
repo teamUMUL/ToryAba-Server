@@ -14,6 +14,9 @@ public class Image extends BaseEntity {
     @Column(name = "image_id")
     private Long id;
 
+    @Column(name = "image_name")
+    private String name;
+
     @Column(name = "image_url")
     private String url;
 
@@ -21,9 +24,10 @@ public class Image extends BaseEntity {
     @JoinColumn(name = "category_seq")
     private Category category;
 
-    public static Image createImage(String url, Category category) {
+    public static Image createImage(String url, String imageName, Category category) {
         Image image = new Image();
         image.url = url;
+        image.name = imageName;
         image.category = category;
         return image;
     }

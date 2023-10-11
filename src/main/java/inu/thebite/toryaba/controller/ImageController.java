@@ -5,11 +5,12 @@ import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.model.image.AddImageRequest;
 import inu.thebite.toryaba.service.ImageService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +25,12 @@ public class ImageController {
         return ResponseEntity.ok(image);
     }
 
+
     // delete image (only one)
-    @DeleteMapping("/image/{imageId}/delete")
-    public void deleteImage(@PathVariable Long imageId) {
-//        imageService.deleteImage(imageId)
+    @DeleteMapping("/{categoryId}/image/{imageName}/delete")
+    public ResponseEntity deleteImage(@PathVariable Long categoryId, @PathVariable String imageName) {
+        imageService.deleteImage(categoryId, imageName);
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 }
