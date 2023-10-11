@@ -31,7 +31,7 @@ public class StoServiceImpl implements StoService {
 
         Sto sto = Sto.createSto(stoList.size() + 1, addStoRequest.getName(), addStoRequest.getContents(),
                 addStoRequest.getCount(), addStoRequest.getGoal(), addStoRequest.getUrgeType(),
-                addStoRequest.getUrgeContent(), addStoRequest.getEnforceContent(), addStoRequest.getMemo(), lto);
+                addStoRequest.getUrgeContent(), addStoRequest.getEnforceContent(), addStoRequest.getMemo(), addStoRequest.getGame(), lto);
 
         stoRepository.save(sto);
         return sto;

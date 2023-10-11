@@ -68,6 +68,10 @@ public class Sto extends BaseEntity {
     @Column(name = "sto_memo_contents", length = 500)
     private String memo;
 
+    // 게임 종류
+    @Column(name = "sto_game")
+    private String game;
+
     // 단기 목표 도달 일자
     @Column(name = "sto_arr_dt")
     private String hitGoalDate;
@@ -87,7 +91,7 @@ public class Sto extends BaseEntity {
     @JoinColumn(name = "lto_seq")
     private Lto lto;
 
-    public static Sto createSto(int templateNum, String name, String content, int count, int goal, String urgeType, String urgeContent, String enforceContent, String memo, Lto lto) {
+    public static Sto createSto(int templateNum, String name, String content, int count, int goal, String urgeType, String urgeContent, String enforceContent, String memo, String game, Lto lto) {
         Sto sto  = new Sto();
         sto.templateNum = templateNum;
         sto.status = "RD";
@@ -101,6 +105,7 @@ public class Sto extends BaseEntity {
         sto.urgeContent = urgeContent;
         sto.enforceContent = enforceContent;
         sto.memo = memo;
+        sto.game = game;
         sto.hitGoalDate = "Not yet";
         sto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         sto.delYN = "N";

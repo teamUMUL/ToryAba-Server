@@ -22,4 +22,6 @@ public class AddStoRequest {
 
     private String memo;
 
+    private String game;
+
 }
