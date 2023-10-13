@@ -44,7 +44,7 @@ public class StoController {
         return ResponseEntity.ok(sto);
     }
 
-    // update image list
+    // update image list(image url)
     @PatchMapping("{stoId}/image/list/update")
     public ResponseEntity updateImageList(@PathVariable Long stoId, @RequestBody UpdateImageList updateImageList) {
         List<String> imageList = stoService.updateImageList(stoId, updateImageList);
