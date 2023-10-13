@@ -1,5 +1,6 @@
 package inu.thebite.toryaba.service.serviceImpl;
 
+import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.entity.Lto;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.AddStoRequest;
@@ -66,11 +67,11 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public List<String> updateImageList(Long stoId, UpdateImageList updateImageList) {
+    public List<Image> updateImageList(Long stoId, UpdateImageList updateImageList) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
-        sto.updateImageList(updateImageList.getImageList());
+        sto.updateImageList(updateImageList.getImageList().stream().toList());
         return sto.getImageList();
     }
 
