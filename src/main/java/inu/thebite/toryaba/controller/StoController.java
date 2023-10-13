@@ -2,9 +2,11 @@ package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.AddStoRequest;
+import inu.thebite.toryaba.model.sto.UpdateImageList;
 import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
 import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -42,11 +44,25 @@ public class StoController {
         return ResponseEntity.ok(sto);
     }
 
+    // update image list
+    @PatchMapping("{stoId}/image/list/update")
+    public ResponseEntity updateImageList(@PathVariable Long stoId, @RequestBody UpdateImageList updateImageList) {
+        List<String> imageList = stoService.updateImageList(stoId, updateImageList);
+        return ResponseEntity.ok(imageList);
+    }
+
     // get STO list
     @GetMapping("{ltoId}/sto/list")
     public ResponseEntity getStoList(@PathVariable Long ltoId) {
         List<Sto> stoList = stoService.getStoList(ltoId);
         return ResponseEntity.ok(stoList);
+    }
+
+    // find STO (only one)
+    @GetMapping("/find/{stoId}/sto")
+    public ResponseEntity findSto(@PathVariable Long stoId) {
+        Sto sto = stoService.findSto(stoId);
+        return ResponseEntity.ok(sto);
     }
 
     // delete STO

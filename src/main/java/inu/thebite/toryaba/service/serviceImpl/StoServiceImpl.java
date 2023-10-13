@@ -3,6 +3,7 @@ package inu.thebite.toryaba.service.serviceImpl;
 import inu.thebite.toryaba.entity.Lto;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.AddStoRequest;
+import inu.thebite.toryaba.model.sto.UpdateImageList;
 import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
 import inu.thebite.toryaba.repository.LtoRepository;
 import inu.thebite.toryaba.repository.StoRepository;
@@ -63,6 +64,16 @@ public class StoServiceImpl implements StoService {
         return sto;
     }
 
+    @Transactional
+    @Override
+    public List<String> updateImageList(Long stoId, UpdateImageList updateImageList) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        sto.updateImageList(updateImageList.getImageList());
+        return sto.getImageList();
+    }
+
     @Override
     public List<Sto> getStoList(Long ltoId) {
         Lto lto = ltoRepository.findById(ltoId)
@@ -70,6 +81,14 @@ public class StoServiceImpl implements StoService {
 
         List<Sto> stoList = stoRepository.findAllByLtoId(lto.getId());
         return stoList;
+    }
+
+    @Override
+    public Sto findSto(Long stoId) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        return sto;
     }
 
     @Transactional

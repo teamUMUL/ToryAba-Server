@@ -8,6 +8,8 @@ import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -85,7 +87,8 @@ public class Sto extends BaseEntity {
     private String delYN;
 
     // 사진
-
+    @Column(name = "sto_image_list")
+    private List<String> imageList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "lto_seq")
@@ -130,6 +133,11 @@ public class Sto extends BaseEntity {
         this.urgeContent = urgeContent;
         this.enforceContent = enforceContent;
         this.memo = memo;
+    }
+
+    // update STO image list
+    public void updateImageList(List<String> imageList) {
+        this.imageList = imageList;
     }
 
 }

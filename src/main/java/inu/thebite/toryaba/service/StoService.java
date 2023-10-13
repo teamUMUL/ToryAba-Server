@@ -2,6 +2,7 @@ package inu.thebite.toryaba.service;
 
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.AddStoRequest;
+import inu.thebite.toryaba.model.sto.UpdateImageList;
 import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface StoService {
     List<Sto> getStoList(Long ltoId);
 
     void deleteSto(Long ltoId, Long stoId);
+
+    Sto findSto(Long stoId);
+
+    List<String> updateImageList(Long stoId, UpdateImageList updateImageList);
 }
