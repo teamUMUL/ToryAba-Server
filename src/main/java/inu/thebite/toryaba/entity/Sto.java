@@ -37,7 +37,7 @@ public class Sto extends BaseEntity {
     @Column(name = "sto_contents", length = 200)
     private String contents;
 
-    // 단기 목표 시도 수
+    // 단기 목표 시도 수(array)
     @Column(name = "sto_trial_cnt", nullable = false, length = 11)
     private int count;
 
