@@ -5,10 +5,12 @@ import lombok.Data;
 @Data
 public class AddLtoRequest {
 
-    // lto 이름
-
+    // Lto 이름
     private String name;
 
-    // lto 내용
-    private String content;
+    // Lto 내용
+    private String contents;
+
+    // 선택한 게임
+    private String game;
 }

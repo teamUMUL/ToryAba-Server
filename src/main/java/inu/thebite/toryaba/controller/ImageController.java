@@ -1,0 +1,36 @@
+package inu.thebite.toryaba.controller;
+
+
+import inu.thebite.toryaba.entity.Image;
+import inu.thebite.toryaba.model.image.AddImageRequest;
+import inu.thebite.toryaba.service.ImageService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+@RestController
+@RequiredArgsConstructor
+public class ImageController {
+
+    private final ImageService imageService;
+
+    // add image (only one)
+    @PostMapping("/image/add")
+    public ResponseEntity addImage(AddImageRequest addImageRequest) {
+        Image image = imageService.addImage(addImageRequest);
+        return ResponseEntity.ok(image);
+    }
+
+
+    // delete image (only one)
+    @DeleteMapping("/{categoryId}/image/{imageName}/delete")
+    public ResponseEntity deleteImage(@PathVariable Long categoryId, @PathVariable String imageName) {
+        imageService.deleteImage(categoryId, imageName);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+}

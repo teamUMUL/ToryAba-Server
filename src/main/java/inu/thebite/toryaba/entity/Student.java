@@ -2,6 +2,8 @@ package inu.thebite.toryaba.entity;
 
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -9,7 +11,8 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Table(name = "tb_student")
 public class Student extends BaseEntity {
 
