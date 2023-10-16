@@ -28,7 +28,7 @@ public class LtoServiceImpl implements LtoService {
         Domain domain = domainRepository.findById(domainId)
                 .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
         List<Lto> ltoList = ltoRepository.findAllByDomainId(domain.getId());
-        Lto lto = Lto.createLto(ltoList.size() + 1, addLtoRequest.getName(), addLtoRequest.getContents(), domain);
+        Lto lto = Lto.createLto(ltoList.size() + 1, addLtoRequest.getName(), addLtoRequest.getContents(), addLtoRequest.getGame(), domain);
         Lto saveLto = ltoRepository.save(lto);
         return saveLto;
     }

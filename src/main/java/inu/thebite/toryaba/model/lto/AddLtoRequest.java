@@ -10,4 +10,7 @@ public class AddLtoRequest {
 
     // Lto 내용
     private String contents;
+
+    // 선택한 게임
+    private String game;
 }
