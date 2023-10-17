@@ -24,10 +24,18 @@ public class CenterController {
         return center;
     }
 
+    // update center
+    @PatchMapping("/{centerId}/center/update")
+    public Center updateCenter(@PathVariable Long centerId, @RequestBody CenterRequest centerRequest) {
+        Center center = centerService.updateCenter(centerId, centerRequest);
+        return center;
+    }
+
+
     // delete center
-    @DeleteMapping("/center/{centerName}/delete")
-    public ResponseEntity deleteCenter(@PathVariable String centerName) {
-        centerService.deleteCenter(centerName);
+    @DeleteMapping("/center/{centerId}/delete")
+    public ResponseEntity deleteCenter(@PathVariable Long centerId) {
+        centerService.deleteCenter(centerId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

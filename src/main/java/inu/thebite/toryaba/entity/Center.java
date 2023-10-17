@@ -25,4 +25,8 @@ public class Center extends BaseEntity {
         center.name = name;
         return center;
     }
+
+    public void updateCenter(String name) {
+        this.name = name;
+    }
 }
