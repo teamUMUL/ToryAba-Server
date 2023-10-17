@@ -10,5 +10,5 @@ public interface DomainService {
 
     List<Domain> getDomainList();
 
-    void deleteDomain(int templateNum);
+    void deleteDomain(Long templateNum);
 }
