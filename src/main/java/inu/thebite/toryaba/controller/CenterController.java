@@ -19,9 +19,9 @@ public class CenterController {
 
     // add center
     @PostMapping("/center/add")
-    public ResponseEntity addCenter(@RequestBody CenterRequest centerRequest) {
+    public Center addCenter(@RequestBody CenterRequest centerRequest) {
         Center center = centerService.addCenter(centerRequest);
-        return ResponseEntity.ok(center);
+        return center;
     }
 
     // delete center
@@ -33,8 +33,8 @@ public class CenterController {
 
     // get center list
     @GetMapping("/center/list")
-    public ResponseEntity getCenterList() {
+    public List<Center> getCenterList() {
         List<Center> centerList = centerService.getCenterList();
-        return ResponseEntity.ok(centerList);
+        return centerList;
     }
 }

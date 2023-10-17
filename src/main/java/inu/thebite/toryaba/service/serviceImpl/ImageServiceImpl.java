@@ -30,9 +30,9 @@ public class ImageServiceImpl implements ImageService {
 
     @Transactional
     @Override
-    public Image addImage(AddImageRequest addImageRequest) {
+    public Image addImage(Long categoryId, AddImageRequest addImageRequest) {
 
-        Category category = categoryRepository.findByName(addImageRequest.getCategoryName())
+        Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new IllegalStateException("해당 카테고리가 존재하지 않습니다."));
 
         String imageName = setImageName(category);

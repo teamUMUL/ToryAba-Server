@@ -21,27 +21,27 @@ public class StoController {
 
     // add STO
     @PostMapping("/{ltoId}/sto/add")
-    public ResponseEntity addSto(@PathVariable Long ltoId, @RequestBody AddStoRequest addStoRequest) {
+    public Sto addSto(@PathVariable Long ltoId, @RequestBody AddStoRequest addStoRequest) {
         Sto sto = stoService.addSto(ltoId, addStoRequest);
-        return ResponseEntity.ok(sto);
+        return sto;
     }
 
     // update STO status when STO status is stop or in progress
     @PatchMapping("{ltoId}/sto/{stoId}/update/status")
-    public ResponseEntity updateStoStatus(@PathVariable Long ltoId,
+    public Sto updateStoStatus(@PathVariable Long ltoId,
                                           @PathVariable Long stoId,
                                           @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
         Sto sto = stoService.updateStoStatus(ltoId, stoId, updateStoStatusRequest);
-        return ResponseEntity.ok(sto);
+        return sto;
     }
 
     // update STO status when STO status is git
     @PatchMapping("{ltoId}/sto/{stoId}/hit/update/status")
-    public ResponseEntity updateStoHitStatus(@PathVariable Long ltoId,
+    public Sto updateStoHitStatus(@PathVariable Long ltoId,
                                              @PathVariable Long stoId,
                                              @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
         Sto sto = stoService.updateStoHitStatus(ltoId, stoId, updateStoStatusRequest);
-        return ResponseEntity.ok(sto);
+        return sto;
     }
 
     // update image list(image url)
@@ -53,16 +53,16 @@ public class StoController {
 
     // get STO list
     @GetMapping("{ltoId}/sto/list")
-    public ResponseEntity getStoList(@PathVariable Long ltoId) {
+    public List<Sto> getStoList(@PathVariable Long ltoId) {
         List<Sto> stoList = stoService.getStoList(ltoId);
-        return ResponseEntity.ok(stoList);
+        return stoList;
     }
 
     // find STO (only one)
     @GetMapping("/find/{stoId}/sto")
-    public ResponseEntity findSto(@PathVariable Long stoId) {
+    public Sto findSto(@PathVariable Long stoId) {
         Sto sto = stoService.findSto(stoId);
-        return ResponseEntity.ok(sto);
+        return sto;
     }
 
     // delete STO

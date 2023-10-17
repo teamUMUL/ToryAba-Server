@@ -19,34 +19,34 @@ public class LtoController {
 
     // add LTO
     @PostMapping("/{domainId}/lto/add")
-    public ResponseEntity<Lto> addLto(@PathVariable Long domainId, @RequestBody AddLtoRequest addLtoRequest) {
+    public Lto addLto(@PathVariable Long domainId, @RequestBody AddLtoRequest addLtoRequest) {
         Lto lto = ltoService.addLto(domainId,addLtoRequest);
-        return ResponseEntity.ok(lto);
+        return lto;
     }
 
     // modified LTO status(stop, in progress)
     @PatchMapping("/{domainId}/lto/{ltoId}/update/status")
-    public ResponseEntity<Lto> updateStatus(@PathVariable Long domainId,
+    public Lto updateStatus(@PathVariable Long domainId,
                                             @PathVariable Long ltoId,
                                             @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoStatus(domainId, ltoId, updateLtoStatusRequest);
-        return ResponseEntity.ok(updateLto);
+        return updateLto;
     }
 
     //modified LTO status(hit)
     @PatchMapping("/{domainId}/lto/{ltoId}/hit/update/status")
-    public ResponseEntity updateHitStatus(@PathVariable Long domainId,
+    public Lto updateHitStatus(@PathVariable Long domainId,
                                           @PathVariable Long ltoId,
                                           @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoHitStatus(domainId, ltoId, updateLtoStatusRequest);
-        return ResponseEntity.ok(updateLto);
+        return updateLto;
     }
 
     // get LTO List
     @GetMapping("/{domainId}/lto/list")
-    public ResponseEntity getLtoList(@PathVariable Long domainId) {
+    public List<Lto> getLtoList(@PathVariable Long domainId) {
         List<Lto> ltoList = ltoService.getLtoList(domainId);
-        return ResponseEntity.ok(ltoList);
+        return ltoList;
     }
 
     // delete LTO

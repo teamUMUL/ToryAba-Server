@@ -18,16 +18,16 @@ public class CategoryController {
 
     // add category
     @PostMapping("/category/add")
-    public ResponseEntity addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
+    public Category addCategory(@RequestBody AddCategoryRequest addCategoryRequest) {
         Category category = categoryService.addCategory(addCategoryRequest);
-        return ResponseEntity.ok(category);
+        return category;
     }
 
     // get category list
     @GetMapping("/category/list")
-    public ResponseEntity getCategoryList() {
+    public List<Category> getCategoryList() {
         List<Category> categoryList = categoryService.getCategoryList();
-        return ResponseEntity.ok(categoryList);
+        return categoryList;
     }
 
     // delete category

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public interface ImageService {
-    Image addImage(AddImageRequest addImageRequest);
+    Image addImage(Long categoryId, AddImageRequest addImageRequest);
 
     void deleteImage(Long categoryId, String imageName);
 

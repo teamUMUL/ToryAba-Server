@@ -20,34 +20,34 @@ public class StudentController {
 
     // add student
     @PostMapping("/{classId}/student/add")
-    public ResponseEntity addStudent(@PathVariable Long classId, @RequestBody AddStudentRequest addStudentRequest) {
+    public Student addStudent(@PathVariable Long classId, @RequestBody AddStudentRequest addStudentRequest) {
         Student student = studentService.addStudent(classId, addStudentRequest);
-        return ResponseEntity.ok(student);
+        return student;
     }
 
     // update startDate
     @PatchMapping("/{classId}/student/{studentId}/startDate/update")
-    public ResponseEntity updateStudentStartDate(@PathVariable Long classId,
+    public Student updateStudentStartDate(@PathVariable Long classId,
                                                  @PathVariable Long studentId,
                                                  @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
         Student student = studentService.updateStudentStartDate(classId, studentId, updateStudentDateRequest);
-        return ResponseEntity.ok(student);
+        return student;
     }
 
     // update endDate
     @PatchMapping("/{classId}/student/{studentId}/endDate/update")
-    public ResponseEntity updateStudentEndDate(@PathVariable Long classId,
+    public Student updateStudentEndDate(@PathVariable Long classId,
                                                  @PathVariable Long studentId,
                                                  @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
         Student student = studentService.updateStudentEndDate(classId, studentId, updateStudentDateRequest);
-        return ResponseEntity.ok(student);
+        return student;
     }
 
     // get student list
     @GetMapping("/{classId}/student/list")
-    public ResponseEntity getStudentList(@PathVariable Long classId) {
+    public List<Student> getStudentList(@PathVariable Long classId) {
         List<Student> studentList = studentService.getStudentList(classId);
-        return ResponseEntity.ok(studentList);
+        return studentList;
     }
 
     // delete student

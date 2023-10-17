@@ -26,10 +26,10 @@ public class PointController {
 
     // get point list
     @GetMapping("/{studentId}/sto/{stoId}/{round}/point/list")
-    public ResponseEntity getPointList(@PathVariable Long stoId,
+    public List<String> getPointList(@PathVariable Long stoId,
                                        @PathVariable Long studentId,
                                        @PathVariable int round) {
         List<String> pointList = pointService.getPointList(stoId, studentId, round);
-        return ResponseEntity.ok(pointList);
+        return pointList;
     }
 }

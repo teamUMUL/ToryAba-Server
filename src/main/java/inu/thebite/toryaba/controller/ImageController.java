@@ -19,9 +19,9 @@ public class ImageController {
     private final ImageService imageService;
 
     // add image (only one)
-    @PostMapping("/image/add")
-    public ResponseEntity addImage(AddImageRequest addImageRequest) {
-        Image image = imageService.addImage(addImageRequest);
+    @PostMapping("/{categoryId}/image/add")
+    public ResponseEntity addImage(@PathVariable Long categoryId, AddImageRequest addImageRequest) {
+        Image image = imageService.addImage(categoryId, addImageRequest);
         return ResponseEntity.ok(image);
     }
 

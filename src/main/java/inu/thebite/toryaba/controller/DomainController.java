@@ -19,16 +19,16 @@ public class DomainController {
 
     // add domain
     @PostMapping("/domain/add")
-    public ResponseEntity addDomain(@RequestBody AddDomainRequest addDomainRequest) {
+    public Domain addDomain(@RequestBody AddDomainRequest addDomainRequest) {
         Domain domain = domainService.addDomain(addDomainRequest);
-        return ResponseEntity.ok(domain);
+        return domain;
     }
 
     // get domain list
     @GetMapping("/domain/list")
-    public ResponseEntity getDomainList() {
+    public List<Domain> getDomainList() {
         List<Domain> domainList = domainService.getDomainList();
-        return ResponseEntity.ok(domainList);
+        return domainList;
     }
 
     // delete domain

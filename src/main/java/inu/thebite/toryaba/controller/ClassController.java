@@ -19,16 +19,16 @@ public class ClassController {
 
     // add class
     @PostMapping("/{centerId}/class/add")
-    public ResponseEntity addClass(@PathVariable Long centerId, @RequestBody AddClassRequest addClassRequest) {
+    public Class addClass(@PathVariable Long centerId, @RequestBody AddClassRequest addClassRequest) {
         Class newClass = classService.addClass(centerId, addClassRequest);
-        return ResponseEntity.ok(newClass);
+        return newClass;
     }
 
     // get class list
     @GetMapping("/{centerId}/class/list")
-    public ResponseEntity getClassList(@PathVariable Long centerId) {
+    public List<Class> getClassList(@PathVariable Long centerId) {
         List<Class> classList = classService.getClassList(centerId);
-        return ResponseEntity.ok(classList);
+        return classList;
     }
 
     // delete class
