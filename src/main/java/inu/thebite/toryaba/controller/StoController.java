@@ -27,7 +27,7 @@ public class StoController {
     }
 
     // update STO status when STO status is stop or in progress
-    @PatchMapping("/sto/{stoId}/update/status")
+    @PatchMapping("/sto/{stoId}/status/update")
     public Sto updateStoStatus(@PathVariable Long stoId,
                                @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
         Sto sto = stoService.updateStoStatus(stoId, updateStoStatusRequest);
@@ -35,7 +35,7 @@ public class StoController {
     }
 
     // update STO status when STO status is git
-    @PatchMapping("/sto/{stoId}/hit/update/status")
+    @PatchMapping("/sto/{stoId}/hit/status/update")
     public Sto updateStoHitStatus(@PathVariable Long stoId,
                                   @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
         Sto sto = stoService.updateStoHitStatus(stoId, updateStoStatusRequest);
