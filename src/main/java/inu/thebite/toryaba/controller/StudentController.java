@@ -26,20 +26,18 @@ public class StudentController {
     }
 
     // update startDate
-    @PatchMapping("/{classId}/student/{studentId}/startDate/update")
-    public Student updateStudentStartDate(@PathVariable Long classId,
-                                                 @PathVariable Long studentId,
-                                                 @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
-        Student student = studentService.updateStudentStartDate(classId, studentId, updateStudentDateRequest);
+    @PatchMapping("/student/{studentId}/startDate/update")
+    public Student updateStudentStartDate(@PathVariable Long studentId,
+                                          @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
+        Student student = studentService.updateStudentStartDate(studentId, updateStudentDateRequest);
         return student;
     }
 
     // update endDate
-    @PatchMapping("/{classId}/student/{studentId}/endDate/update")
-    public Student updateStudentEndDate(@PathVariable Long classId,
-                                                 @PathVariable Long studentId,
-                                                 @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
-        Student student = studentService.updateStudentEndDate(classId, studentId, updateStudentDateRequest);
+    @PatchMapping("/student/{studentId}/endDate/update")
+    public Student updateStudentEndDate(@PathVariable Long studentId,
+                                        @RequestBody UpdateStudentDateRequest updateStudentDateRequest) {
+        Student student = studentService.updateStudentEndDate(studentId, updateStudentDateRequest);
         return student;
     }
 
@@ -51,9 +49,9 @@ public class StudentController {
     }
 
     // delete student
-    @DeleteMapping("/{classId}/student/{studentId}/delete")
-    public ResponseEntity deleteStudent(@PathVariable Long classId, @PathVariable Long studentId) {
-        studentService.deleteStudent(classId, studentId);
+    @DeleteMapping("/student/{studentId}/delete")
+    public ResponseEntity deleteStudent(@PathVariable Long studentId) {
+        studentService.deleteStudent(studentId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
