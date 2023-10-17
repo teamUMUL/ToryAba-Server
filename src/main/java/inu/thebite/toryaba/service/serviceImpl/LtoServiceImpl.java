@@ -35,10 +35,7 @@ public class LtoServiceImpl implements LtoService {
 
     @Transactional
     @Override
-    public Lto updateLtoStatus(Long domainId, Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest) {
-
-        domainRepository.findById(domainId)
-                .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
+    public Lto updateLtoStatus(Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto lto = ltoRepository.findById(ltoId)
                 .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
 
@@ -48,9 +45,7 @@ public class LtoServiceImpl implements LtoService {
 
     @Transactional
     @Override
-    public Lto updateLtoHitStatus(Long domainId, Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest) {
-        domainRepository.findById(domainId)
-                .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
+    public Lto updateLtoHitStatus(Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto lto = ltoRepository.findById(ltoId)
                 .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
         lto.updateLtoHitStatus(updateLtoStatusRequest.getStatus());
@@ -58,19 +53,14 @@ public class LtoServiceImpl implements LtoService {
     }
 
     @Override
-    public List<Lto> getLtoList(Long domainId) {
-        Domain domain = domainRepository.findById(domainId)
-                .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
-
-        List<Lto> LtoList = ltoRepository.findAllByDomainId(domain.getId());
+    public List<Lto> getLtoList() {
+        List<Lto> LtoList = ltoRepository.findAll();
         return LtoList;
     }
 
     @Transactional
     @Override
-    public void deleteLto(Long domainId, Long ltoId) {
-        domainRepository.findById(domainId)
-                .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
+    public void deleteLto(Long ltoId) {
         if (ltoRepository.findById(ltoId).isPresent()) {
             ltoRepository.deleteById(ltoId);
         } else {

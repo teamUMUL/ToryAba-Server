@@ -25,34 +25,30 @@ public class LtoController {
     }
 
     // modified LTO status(stop, in progress)
-    @PatchMapping("/{domainId}/lto/{ltoId}/update/status")
-    public Lto updateStatus(@PathVariable Long domainId,
-                                            @PathVariable Long ltoId,
-                                            @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
-        Lto updateLto = ltoService.updateLtoStatus(domainId, ltoId, updateLtoStatusRequest);
+    @PatchMapping("/lto/{ltoId}/update/status")
+    public Lto updateStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
+        Lto updateLto = ltoService.updateLtoStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
     }
 
     //modified LTO status(hit)
-    @PatchMapping("/{domainId}/lto/{ltoId}/hit/update/status")
-    public Lto updateHitStatus(@PathVariable Long domainId,
-                                          @PathVariable Long ltoId,
-                                          @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
-        Lto updateLto = ltoService.updateLtoHitStatus(domainId, ltoId, updateLtoStatusRequest);
+    @PatchMapping("/lto/{ltoId}/hit/update/status")
+    public Lto updateHitStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
+        Lto updateLto = ltoService.updateLtoHitStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
     }
 
     // get LTO List
-    @GetMapping("/{domainId}/lto/list")
-    public List<Lto> getLtoList(@PathVariable Long domainId) {
-        List<Lto> ltoList = ltoService.getLtoList(domainId);
+    @GetMapping("/lto/list")
+    public List<Lto> getLtoList() {
+        List<Lto> ltoList = ltoService.getLtoList();
         return ltoList;
     }
 
     // delete LTO
-    @DeleteMapping("{domainId}/lto/{ltoId}/delete")
-    public ResponseEntity deleteLto(@PathVariable Long domainId, @PathVariable Long ltoId) {
-        ltoService.deleteLto(domainId, ltoId);
+    @DeleteMapping("/lto/{ltoId}/delete")
+    public ResponseEntity deleteLto(@PathVariable Long ltoId) {
+        ltoService.deleteLto(ltoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
