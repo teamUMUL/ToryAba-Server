@@ -39,9 +39,9 @@ public class ClassController {
     }
 
     // delete class
-    @DeleteMapping("/{centerId}/class/{classId}/delete")
-    public ResponseEntity deleteClass(@PathVariable Long centerId, @PathVariable Long classId) {
-        classService.deleteClass(centerId, classId);
+    @DeleteMapping("/class/{classId}/delete")
+    public ResponseEntity deleteClass(@PathVariable Long classId) {
+        classService.deleteClass(classId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

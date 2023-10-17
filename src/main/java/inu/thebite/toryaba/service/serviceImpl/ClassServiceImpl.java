@@ -49,10 +49,7 @@ public class ClassServiceImpl implements ClassService {
 
     @Transactional
     @Override
-    public void deleteClass(Long centerId, Long classId) {
-        centerRepository.findById(centerId).
-                orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
-
+    public void deleteClass(Long classId) {
         classRepository.findById(classId)
                         .orElseThrow(() -> new IllegalStateException("해당 반이 존재하지 않습니다."));
 
