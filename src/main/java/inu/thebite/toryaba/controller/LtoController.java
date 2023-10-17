@@ -25,14 +25,14 @@ public class LtoController {
     }
 
     // modified LTO status(stop, in progress)
-    @PatchMapping("/lto/{ltoId}/update/status")
+    @PatchMapping("/lto/{ltoId}/status/update")
     public Lto updateStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
     }
 
     //modified LTO status(hit)
-    @PatchMapping("/lto/{ltoId}/hit/update/status")
+    @PatchMapping("/lto/{ltoId}/hit/status/update")
     public Lto updateHitStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoHitStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
