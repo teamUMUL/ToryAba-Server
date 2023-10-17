@@ -27,20 +27,18 @@ public class StoController {
     }
 
     // update STO status when STO status is stop or in progress
-    @PatchMapping("{ltoId}/sto/{stoId}/update/status")
-    public Sto updateStoStatus(@PathVariable Long ltoId,
-                                          @PathVariable Long stoId,
-                                          @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
-        Sto sto = stoService.updateStoStatus(ltoId, stoId, updateStoStatusRequest);
+    @PatchMapping("/sto/{stoId}/update/status")
+    public Sto updateStoStatus(@PathVariable Long stoId,
+                               @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
+        Sto sto = stoService.updateStoStatus(stoId, updateStoStatusRequest);
         return sto;
     }
 
     // update STO status when STO status is git
-    @PatchMapping("{ltoId}/sto/{stoId}/hit/update/status")
-    public Sto updateStoHitStatus(@PathVariable Long ltoId,
-                                             @PathVariable Long stoId,
-                                             @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
-        Sto sto = stoService.updateStoHitStatus(ltoId, stoId, updateStoStatusRequest);
+    @PatchMapping("/sto/{stoId}/hit/update/status")
+    public Sto updateStoHitStatus(@PathVariable Long stoId,
+                                  @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
+        Sto sto = stoService.updateStoHitStatus(stoId, updateStoStatusRequest);
         return sto;
     }
 
@@ -52,9 +50,9 @@ public class StoController {
     }
 
     // get STO list
-    @GetMapping("{ltoId}/sto/list")
-    public List<Sto> getStoList(@PathVariable Long ltoId) {
-        List<Sto> stoList = stoService.getStoList(ltoId);
+    @GetMapping("/sto/list")
+    public List<Sto> getStoList() {
+        List<Sto> stoList = stoService.getStoList();
         return stoList;
     }
 
@@ -66,9 +64,9 @@ public class StoController {
     }
 
     // delete STO
-    @DeleteMapping("{ltoId}/sto/{stoId}/delete")
-    public ResponseEntity deleteSto(@PathVariable Long ltoId, @PathVariable Long stoId) {
-        stoService.deleteSto(ltoId, stoId);
+    @DeleteMapping("/sto/{stoId}/delete")
+    public ResponseEntity deleteSto(@PathVariable Long stoId) {
+        stoService.deleteSto(stoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
