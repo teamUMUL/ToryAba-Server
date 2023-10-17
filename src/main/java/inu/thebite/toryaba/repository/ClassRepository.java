@@ -14,6 +14,4 @@ import java.util.Optional;
 @Repository
 public interface ClassRepository extends JpaRepository<Class, Long> {
 
-    List<Class> findAllByCenterId(Long centerId);
-
 }
