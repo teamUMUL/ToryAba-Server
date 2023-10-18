@@ -13,26 +13,27 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/domain")
 public class DomainController {
 
     private final DomainService domainService;
 
     // add domain
-    @PostMapping("/domain/add")
+    @PostMapping("/add")
     public Domain addDomain(@RequestBody AddDomainRequest addDomainRequest) {
         Domain domain = domainService.addDomain(addDomainRequest);
         return domain;
     }
 
     // get domain list
-    @GetMapping("/domain/list")
+    @GetMapping("/list")
     public List<Domain> getDomainList() {
         List<Domain> domainList = domainService.getDomainList();
         return domainList;
     }
 
     // delete domain
-    @DeleteMapping("/domain/{domainId}/delete")
+    @DeleteMapping("/{domainId}/delete")
     public ResponseEntity deleteDomain(@PathVariable Long domainId) {
         domainService.deleteDomain(domainId);
         return ResponseEntity.status(HttpStatus.OK).build();
