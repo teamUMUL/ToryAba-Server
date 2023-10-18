@@ -57,6 +57,7 @@ public class StoController {
     }
 
     // find STO (only one)
+    // Expected to be unnecessary for this part
     @GetMapping("/find/{stoId}/sto")
     public Sto findSto(@PathVariable Long stoId) {
         Sto sto = stoService.findSto(stoId);

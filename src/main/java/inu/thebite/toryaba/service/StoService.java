@@ -19,6 +19,7 @@ public interface StoService {
 
     void deleteSto(Long stoId);
 
+    // Expected to be unnecessary for this
     Sto findSto(Long stoId);
 
     List<Image> updateImageList(Long stoId, UpdateImageList updateImageList);
