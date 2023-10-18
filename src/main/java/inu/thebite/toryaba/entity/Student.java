@@ -59,6 +59,16 @@ public class Student extends BaseEntity {
         return student;
     }
 
+    public void updateStudent(String name, String birth, String etc, String parentName, String startDate, String endDate, String registerDate) {
+        this.name = name;
+        this.birth = birth;
+        this.etc = etc;
+        this.parentName = parentName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.registerDate = registerDate;
+    }
+
     public void updateStartDate(String startDate) {
         this.startDate = startDate;
     }
