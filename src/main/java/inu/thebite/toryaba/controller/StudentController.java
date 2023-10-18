@@ -4,6 +4,7 @@ package inu.thebite.toryaba.controller;
 import inu.thebite.toryaba.entity.Student;
 import inu.thebite.toryaba.model.student.AddStudentRequest;
 import inu.thebite.toryaba.model.student.UpdateStudentDateRequest;
+import inu.thebite.toryaba.model.student.UpdateStudentRequest;
 import inu.thebite.toryaba.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,13 @@ public class StudentController {
     @PostMapping("/{classId}/student/add")
     public Student addStudent(@PathVariable Long classId, @RequestBody AddStudentRequest addStudentRequest) {
         Student student = studentService.addStudent(classId, addStudentRequest);
+        return student;
+    }
+
+    // update student info
+    @PatchMapping("/student/{studentId}/update")
+    public Student updateStudent(@PathVariable Long studentId, @RequestBody UpdateStudentRequest updateStudentRequest) {
+        Student student = studentService.updateStudent(studentId, updateStudentRequest);
         return student;
     }
 

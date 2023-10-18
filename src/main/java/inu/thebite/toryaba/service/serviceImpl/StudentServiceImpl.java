@@ -5,6 +5,7 @@ import inu.thebite.toryaba.entity.Class;
 import inu.thebite.toryaba.entity.Student;
 import inu.thebite.toryaba.model.student.AddStudentRequest;
 import inu.thebite.toryaba.model.student.UpdateStudentDateRequest;
+import inu.thebite.toryaba.model.student.UpdateStudentRequest;
 import inu.thebite.toryaba.repository.ClassRepository;
 import inu.thebite.toryaba.repository.StudentRepository;
 import inu.thebite.toryaba.service.StudentService;
@@ -29,6 +30,19 @@ public class StudentServiceImpl implements StudentService {
 
         Student student = Student.createStudent(addStudentRequest.getName(), addStudentRequest.getBirth(), addStudentRequest.getEtc(), addStudentRequest.getParentName(), addStudentRequest.getStartDate(), findClass);
         studentRepository.save(student);
+        return student;
+    }
+
+    @Transactional
+    @Override
+    public Student updateStudent(Long studentId, UpdateStudentRequest updateStudentRequest) {
+        Student student = studentRepository.findById(studentId)
+                .orElseThrow(() -> new IllegalStateException("해당 아이의 대한 정보가 존재하지 않습니다."));
+
+        student.updateStudent(updateStudentRequest.getName(), updateStudentRequest.getBirth(),
+                updateStudentRequest.getEtc(), updateStudentRequest.getParentName(),
+                updateStudentRequest.getStartDate(), updateStudentRequest.getEndDate(),
+                updateStudentRequest.getRegisterDate());
         return student;
     }
 
