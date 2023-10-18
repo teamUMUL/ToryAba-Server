@@ -57,7 +57,7 @@ public class Domain extends BaseEntity {
         Domain domain = new Domain();
         domain.templateNumber = templateNumber;
         domain.type = type;
-        domain.status = "Not";
+        domain.status = "READY";
         domain.name = name;
         domain.content = content;
         domain.useYN = "Y";

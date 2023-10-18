@@ -13,19 +13,20 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping(value = "/center")
 public class CenterController {
 
     private final CenterService centerService;
 
     // add center
-    @PostMapping("/center/add")
+    @PostMapping("/add")
     public Center addCenter(@RequestBody CenterRequest centerRequest) {
         Center center = centerService.addCenter(centerRequest);
         return center;
     }
 
     // update center
-    @PatchMapping("/{centerId}/center/update")
+    @PatchMapping("/{centerId}/update")
     public Center updateCenter(@PathVariable Long centerId, @RequestBody CenterRequest centerRequest) {
         Center center = centerService.updateCenter(centerId, centerRequest);
         return center;
@@ -33,14 +34,14 @@ public class CenterController {
 
 
     // delete center
-    @DeleteMapping("/center/{centerId}/delete")
+    @DeleteMapping("/{centerId}/delete")
     public ResponseEntity deleteCenter(@PathVariable Long centerId) {
         centerService.deleteCenter(centerId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
     // get center list
-    @GetMapping("/center/list")
+    @GetMapping("/list")
     public List<Center> getCenterList() {
         List<Center> centerList = centerService.getCenterList();
         return centerList;

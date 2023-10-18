@@ -25,7 +25,7 @@ public class ClassController {
     }
 
     // update class
-    @PatchMapping("/{classId}/class/update")
+    @PatchMapping("/class/{classId}/update")
     public Class updateClass(@PathVariable Long classId, @RequestBody ClassRequest classRequest) {
         Class newClass = classService.updateClass(classId, classRequest);
         return newClass;
