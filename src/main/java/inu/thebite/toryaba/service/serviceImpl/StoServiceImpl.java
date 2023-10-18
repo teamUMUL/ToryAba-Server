@@ -75,6 +75,7 @@ public class StoServiceImpl implements StoService {
         return stoList;
     }
 
+    // Expected to be unnecessary for this
     @Override
     public Sto findSto(Long stoId) {
         Sto sto = stoRepository.findById(stoId)
