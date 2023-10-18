@@ -2,7 +2,7 @@ package inu.thebite.toryaba.controller;
 
 
 import inu.thebite.toryaba.entity.Class;
-import inu.thebite.toryaba.model.center.AddClassRequest;
+import inu.thebite.toryaba.model.childClass.ClassRequest;
 import inu.thebite.toryaba.service.ClassService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,22 +19,29 @@ public class ClassController {
 
     // add class
     @PostMapping("/{centerId}/class/add")
-    public Class addClass(@PathVariable Long centerId, @RequestBody AddClassRequest addClassRequest) {
-        Class newClass = classService.addClass(centerId, addClassRequest);
+    public Class addClass(@PathVariable Long centerId, @RequestBody ClassRequest classRequest) {
+        Class newClass = classService.addClass(centerId, classRequest);
+        return newClass;
+    }
+
+    // update class
+    @PatchMapping("/class/{classId}/update")
+    public Class updateClass(@PathVariable Long classId, @RequestBody ClassRequest classRequest) {
+        Class newClass = classService.updateClass(classId, classRequest);
         return newClass;
     }
 
     // get class list
-    @GetMapping("/{centerId}/class/list")
-    public List<Class> getClassList(@PathVariable Long centerId) {
-        List<Class> classList = classService.getClassList(centerId);
+    @GetMapping("/class/list")
+    public List<Class> getClassList() {
+        List<Class> classList = classService.getClassList();
         return classList;
     }
 
     // delete class
-    @DeleteMapping("/{centerId}/class/{classId}/delete")
-    public ResponseEntity deleteClass(@PathVariable Long centerId, @PathVariable Long classId) {
-        classService.deleteClass(centerId, classId);
+    @DeleteMapping("/class/{classId}/delete")
+    public ResponseEntity deleteClass(@PathVariable Long classId) {
+        classService.deleteClass(classId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

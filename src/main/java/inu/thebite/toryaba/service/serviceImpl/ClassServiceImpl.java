@@ -2,7 +2,7 @@ package inu.thebite.toryaba.service.serviceImpl;
 
 import inu.thebite.toryaba.entity.Center;
 import inu.thebite.toryaba.entity.Class;
-import inu.thebite.toryaba.model.center.AddClassRequest;
+import inu.thebite.toryaba.model.childClass.ClassRequest;
 import inu.thebite.toryaba.repository.CenterRepository;
 import inu.thebite.toryaba.repository.ClassRepository;
 import inu.thebite.toryaba.service.ClassService;
@@ -22,30 +22,34 @@ public class ClassServiceImpl implements ClassService {
 
     @Transactional
     @Override
-    public Class addClass(Long centerId, AddClassRequest addClassRequest) {
+    public Class addClass(Long centerId, ClassRequest classRequest) {
         Center center = centerRepository.findById(centerId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
 
-        Class newClass = Class.createClass(addClassRequest.getName(), center);
+        Class newClass = Class.createClass(classRequest.getName(), center);
         classRepository.save(newClass);
         return newClass;
     }
 
+    @Transactional
     @Override
-    public List<Class> getClassList(Long centerId) {
-        centerRepository.findById(centerId)
-                .orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
+    public Class updateClass(Long classId, ClassRequest classRequest) {
+        Class newClass = classRepository.findById(classId)
+                .orElseThrow(() -> new IllegalStateException("해당 반이 존재하지 않습니다."));
 
-        List<Class> classList = classRepository.findAllByCenterId(centerId);
+        newClass.updateClass(classRequest.getName());
+        return newClass;
+    }
+
+    @Override
+    public List<Class> getClassList() {
+        List<Class> classList = classRepository.findAll();
         return classList;
     }
 
     @Transactional
     @Override
-    public void deleteClass(Long centerId, Long classId) {
-        centerRepository.findById(centerId).
-                orElseThrow(() -> new IllegalStateException("해당하는 센터가 존재하지 않습니다."));
-
+    public void deleteClass(Long classId) {
         classRepository.findById(classId)
                         .orElseThrow(() -> new IllegalStateException("해당 반이 존재하지 않습니다."));
 

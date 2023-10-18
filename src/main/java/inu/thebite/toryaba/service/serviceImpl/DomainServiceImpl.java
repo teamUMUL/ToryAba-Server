@@ -32,8 +32,8 @@ public class DomainServiceImpl implements DomainService {
 
     @Transactional
     @Override
-    public void deleteDomain(int templateNum) {
-        Domain domain = domainRepository.findByTemplateNumber(templateNum).
+    public void deleteDomain(Long templateNum) {
+        Domain domain = domainRepository.findById(templateNum).
                 orElseThrow(() -> new IllegalStateException("해당하는 domain이 존재하지 않습니다."));
 
         domainRepository.deleteById(domain.getId());

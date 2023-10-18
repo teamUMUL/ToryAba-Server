@@ -41,10 +41,7 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public Sto updateStoStatus(Long ltoId, Long stoId, UpdateStoStatusRequest updateStoStatusRequest) {
-        ltoRepository.findById(ltoId)
-                .orElseThrow(() -> new IllegalStateException("해당하는 LTO가 존재하지 않습니다."));
-
+    public Sto updateStoStatus( Long stoId, UpdateStoStatusRequest updateStoStatusRequest) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
@@ -54,10 +51,7 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public Sto updateStoHitStatus(Long ltoId, Long stoId, UpdateStoStatusRequest updateStoStatusRequest) {
-        ltoRepository.findById(ltoId)
-                .orElseThrow(() -> new IllegalStateException("해당하는 LTO가 존재하지 않습니다."));
-
+    public Sto updateStoHitStatus(Long stoId, UpdateStoStatusRequest updateStoStatusRequest) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
@@ -76,11 +70,8 @@ public class StoServiceImpl implements StoService {
     }
 
     @Override
-    public List<Sto> getStoList(Long ltoId) {
-        Lto lto = ltoRepository.findById(ltoId)
-                .orElseThrow(() -> new IllegalStateException("해당하는 LTO가 존재하지 않습니다."));
-
-        List<Sto> stoList = stoRepository.findAllByLtoId(lto.getId());
+    public List<Sto> getStoList() {
+        List<Sto> stoList = stoRepository.findAll();
         return stoList;
     }
 
@@ -94,10 +85,7 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public void deleteSto(Long ltoId, Long stoId) {
-        ltoRepository.findById(ltoId)
-                .orElseThrow(() -> new IllegalStateException("해당하는 LTO가 존재하지 않습니다."));
-
+    public void deleteSto(Long stoId) {
         if(stoRepository.findById(stoId).isPresent()) {
             stoRepository.deleteById(stoId);
         } else {

@@ -34,10 +34,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     @Override
-    public Student updateStudentStartDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
-        classRepository.findById(classId)
-                .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
-
+    public Student updateStudentStartDate(Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("해당 아이의 대한 정보가 존재하지 않습니다."));
 
@@ -47,10 +44,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     @Override
-    public Student updateStudentEndDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
-        classRepository.findById(classId)
-                .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
-
+    public Student updateStudentEndDate(Long studentId, UpdateStudentDateRequest updateStudentDateRequest) {
         Student student = studentRepository.findById(studentId)
                 .orElseThrow(() -> new IllegalStateException("해당 아이의 대한 정보가 존재하지 않습니다."));
 
@@ -59,19 +53,13 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public List<Student> getStudentList(Long classId) {
-        classRepository.findById(classId)
-                .orElseThrow(() -> new IllegalStateException("해당 반은 존재하지 않습니다."));
-
-        List<Student> studentList = studentRepository.findAllByToryClassId(classId);
+    public List<Student> getStudentList() {
+        List<Student> studentList = studentRepository.findAll();
         return studentList;
     }
 
     @Override
-    public void deleteStudent(Long classId, Long studentId) {
-        if(!classRepository.findById(classId).isPresent()) {
-            throw new IllegalStateException("해당 반은 존재하지 않습니다.");
-        }
+    public void deleteStudent(Long studentId) {
         if(!studentRepository.findById(studentId).isPresent()) {
             throw new IllegalStateException("해당 아이의 대한 정보가 존재하지 않습니다.");
         }

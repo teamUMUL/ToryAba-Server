@@ -11,11 +11,11 @@ public interface LtoService {
 
     Lto addLto(Long domainId, AddLtoRequest addLtoRequest);
 
-    Lto updateLtoStatus(Long domainId, Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
+    Lto updateLtoStatus(Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
 
-    List<Lto> getLtoList(Long domainId);
+    List<Lto> getLtoList();
 
-    void deleteLto(Long domainId, Long ltoId);
+    void deleteLto(Long ltoId);
 
-    Lto updateLtoHitStatus(Long domainId, Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
+    Lto updateLtoHitStatus(Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
 }

@@ -32,9 +32,9 @@ public class DomainController {
     }
 
     // delete domain
-    @DeleteMapping("/domain/{templateNum}/delete")
-    public ResponseEntity deleteDomain(@PathVariable int templateNum) {
-        domainService.deleteDomain(templateNum);
+    @DeleteMapping("/domain/{domainId}/delete")
+    public ResponseEntity deleteDomain(@PathVariable Long domainId) {
+        domainService.deleteDomain(domainId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }

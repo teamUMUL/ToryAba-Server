@@ -94,7 +94,7 @@ public class Sto extends BaseEntity {
     public static Sto createSto(int templateNum, String name, String content, int count, int goal, String urgeType, String urgeContent, String enforceContent, String memo, Lto lto) {
         Sto sto  = new Sto();
         sto.templateNum = templateNum;
-        sto.status = "RD";
+        sto.status = "READY";
         sto.name = name;
         sto.contents = content;
         sto.count = count;
@@ -105,7 +105,7 @@ public class Sto extends BaseEntity {
         sto.urgeContent = urgeContent;
         sto.enforceContent = enforceContent;
         sto.memo = memo;
-        sto.hitGoalDate = "Not yet";
+        sto.hitGoalDate = "NOT YET";
         sto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         sto.delYN = "N";
         sto.lto = lto;

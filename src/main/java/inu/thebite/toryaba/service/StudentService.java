@@ -9,11 +9,11 @@ import java.util.List;
 public interface StudentService {
     Student addStudent(Long classId, AddStudentRequest addStudentRequest);
 
-    Student updateStudentStartDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest);
+    Student updateStudentStartDate(Long studentId, UpdateStudentDateRequest updateStudentDateRequest);
 
-    Student updateStudentEndDate(Long classId, Long studentId, UpdateStudentDateRequest updateStudentDateRequest);
+    Student updateStudentEndDate(Long studentId, UpdateStudentDateRequest updateStudentDateRequest);
 
-    void deleteStudent(Long classId, Long studentId);
+    void deleteStudent(Long studentId);
 
-    List<Student> getStudentList(Long classId);
+    List<Student> getStudentList();
 }

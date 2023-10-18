@@ -11,13 +11,13 @@ import java.util.List;
 public interface StoService {
     Sto addSto(Long ltoId, AddStoRequest addStoRequest);
 
-    Sto updateStoStatus(Long ltoId, Long stoId, UpdateStoStatusRequest updateStoStatusRequest);
+    Sto updateStoStatus(Long stoId, UpdateStoStatusRequest updateStoStatusRequest);
 
-    Sto updateStoHitStatus(Long ltoId, Long stoId, UpdateStoStatusRequest updateStoStatusRequest);
+    Sto updateStoHitStatus(Long stoId, UpdateStoStatusRequest updateStoStatusRequest);
 
-    List<Sto> getStoList(Long ltoId);
+    List<Sto> getStoList();
 
-    void deleteSto(Long ltoId, Long stoId);
+    void deleteSto(Long stoId);
 
     Sto findSto(Long stoId);
 

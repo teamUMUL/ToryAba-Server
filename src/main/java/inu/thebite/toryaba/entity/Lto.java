@@ -59,7 +59,7 @@ public class Lto extends BaseEntity {
     public static Lto createLto(int templateNum, String name, String content, String game, Domain domain) {
         Lto lto = new Lto();
         lto.templateNum = templateNum;
-        lto.status = "RD";
+        lto.status = "READY";
         lto.name = name;
         lto.contents = content;
         lto.game = game;
