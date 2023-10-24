@@ -38,4 +38,5 @@ out/
 
 *.yml
 application.properties
+data.sql
 
