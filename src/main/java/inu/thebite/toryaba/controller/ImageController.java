@@ -25,6 +25,12 @@ public class ImageController {
         return ResponseEntity.ok(image);
     }
 
+    // get all image list
+    @GetMapping("/image/list")
+    public List<Image> getImageList() {
+        List<Image> imageList = imageService.getImageList();
+        return imageList;
+    }
 
     // delete image (only one)
     @DeleteMapping("/{categoryId}/image/{imageName}/delete")
