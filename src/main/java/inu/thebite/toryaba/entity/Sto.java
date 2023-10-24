@@ -120,11 +120,16 @@ public class Sto extends BaseEntity {
     // update STO status when sto status is "hit"
     public void updateStoHitStatus(String status) {
         this.status = status;
-        this.hitGoalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));;
+        this.hitGoalDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+        this.achievementOrNot = "Y";
     }
 
     // update STO contents
-    public void updateSto(String urgeType, String urgeContent, String enforceContent, String memo) {
+    public void updateSto(String name, String contents, int count,int goal, String urgeType, String urgeContent, String enforceContent, String memo) {
+        this.name = name;
+        this.contents = contents;
+        this.count = count;
+        this.goal = goal;
         this.urgeType = urgeType;
         this.urgeContent = urgeContent;
         this.enforceContent = enforceContent;
