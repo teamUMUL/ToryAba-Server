@@ -69,6 +69,9 @@ public class Sto extends BaseEntity {
     @Column(name = "sto_memo_contents", length = 500)
     private String memo;
 
+    // 회차 정보
+    @Column(name = "sto_round", length = 10)
+    private int round;
 
     // 단기 목표 도달 일자
     @Column(name = "sto_arr_dt")
@@ -105,6 +108,7 @@ public class Sto extends BaseEntity {
         sto.urgeContent = urgeContent;
         sto.enforceContent = enforceContent;
         sto.memo = memo;
+        sto.round = 1;
         sto.hitGoalDate = "NOT YET";
         sto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         sto.delYN = "N";
@@ -139,6 +143,11 @@ public class Sto extends BaseEntity {
     // update STO image list
     public void updateImageList(List<Image> imageList) {
         this.imageList = imageList;
+    }
+
+    // update STO round
+    public void updateStoRound(int round) {
+        this.round = round + 1;
     }
 
 }

@@ -57,6 +57,13 @@ public class StoController {
         return ResponseEntity.ok(imageList);
     }
 
+    // update STO round
+    @PatchMapping("/sto/{stoId}/round/update")
+    public ResponseEntity updateStoRound(@PathVariable Long stoId) {
+        Sto sto = stoService.updateStoRound(stoId);
+        return ResponseEntity.ok(sto);
+    }
+
     // get STO list
     @GetMapping("/sto/list")
     public List<Sto> getStoList() {

@@ -84,6 +84,16 @@ public class StoServiceImpl implements StoService {
         return sto.getImageList();
     }
 
+    @Transactional
+    @Override
+    public Sto updateStoRound(Long stoId) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        sto.updateStoRound(sto.getRound());
+        return sto;
+    }
+
     @Override
     public List<Sto> getStoList() {
         List<Sto> stoList = stoRepository.findAll();

@@ -26,4 +26,6 @@ public interface StoService {
     List<Image> updateImageList(Long stoId, UpdateImageList updateImageList);
 
     Sto updateSto(Long stoId, UpdateStoRequest updateStoRequest);
+
+    Sto updateStoRound(Long stoId);
 }
