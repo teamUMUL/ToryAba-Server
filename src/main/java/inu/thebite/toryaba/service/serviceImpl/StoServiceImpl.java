@@ -5,6 +5,7 @@ import inu.thebite.toryaba.entity.Lto;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.AddStoRequest;
 import inu.thebite.toryaba.model.sto.UpdateImageList;
+import inu.thebite.toryaba.model.sto.UpdateStoRequest;
 import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
 import inu.thebite.toryaba.repository.LtoRepository;
 import inu.thebite.toryaba.repository.StoRepository;
@@ -56,6 +57,20 @@ public class StoServiceImpl implements StoService {
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
         sto.updateStoHitStatus(updateStoStatusRequest.getStatus());
+        return sto;
+    }
+
+
+    @Transactional
+    @Override
+    public Sto updateSto(Long stoId, UpdateStoRequest updateStoRequest) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        sto.updateSto(updateStoRequest.getName(), updateStoRequest.getContents(), updateStoRequest.getCount(),
+                updateStoRequest.getGoal(), updateStoRequest.getUrgeType(), updateStoRequest.getUrgeContent(),
+                updateStoRequest.getEnforceContent(), updateStoRequest.getMemo());
+
         return sto;
     }
 

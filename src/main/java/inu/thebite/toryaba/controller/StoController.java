@@ -4,6 +4,7 @@ import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.AddStoRequest;
 import inu.thebite.toryaba.model.sto.UpdateImageList;
+import inu.thebite.toryaba.model.sto.UpdateStoRequest;
 import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
 import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
@@ -42,8 +43,15 @@ public class StoController {
         return sto;
     }
 
+    // update STO contents
+    @PatchMapping("/sto/{stoId}/update")
+    public Sto updateSto(@PathVariable Long stoId, @RequestBody UpdateStoRequest updateStoRequest) {
+        Sto sto = stoService.updateSto(stoId, updateStoRequest);
+        return sto;
+    }
+
     // update image list(image url)
-    @PatchMapping("{stoId}/image/list/update")
+    @PatchMapping("/sto/{stoId}/image/list/update")
     public ResponseEntity updateImageList(@PathVariable Long stoId, @RequestBody UpdateImageList updateImageList) {
         List<Image> imageList = stoService.updateImageList(stoId, updateImageList);
         return ResponseEntity.ok(imageList);
