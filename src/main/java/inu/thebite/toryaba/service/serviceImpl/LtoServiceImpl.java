@@ -2,7 +2,7 @@ package inu.thebite.toryaba.service.serviceImpl;
 
 import inu.thebite.toryaba.entity.Domain;
 import inu.thebite.toryaba.entity.Lto;
-import inu.thebite.toryaba.model.lto.AddLtoRequest;
+import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 import inu.thebite.toryaba.repository.DomainRepository;
 import inu.thebite.toryaba.repository.LtoRepository;
@@ -23,12 +23,12 @@ public class LtoServiceImpl implements LtoService {
 
     @Override
     @Transactional
-    public Lto addLto(Long domainId, AddLtoRequest addLtoRequest) {
+    public Lto addLto(Long domainId, LtoRequest ltoRequest) {
 
         Domain domain = domainRepository.findById(domainId)
                 .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
         List<Lto> ltoList = ltoRepository.findAllByDomainId(domain.getId());
-        Lto lto = Lto.createLto(ltoList.size() + 1, addLtoRequest.getName(), addLtoRequest.getContents(), addLtoRequest.getGame(), domain);
+        Lto lto = Lto.createLto(ltoList.size() + 1, ltoRequest.getName(), ltoRequest.getContents(), ltoRequest.getGame(), domain);
         Lto saveLto = ltoRepository.save(lto);
         return saveLto;
     }
@@ -49,6 +49,15 @@ public class LtoServiceImpl implements LtoService {
         Lto lto = ltoRepository.findById(ltoId)
                 .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
         lto.updateLtoHitStatus(updateLtoStatusRequest.getStatus());
+        return lto;
+    }
+
+    @Transactional
+    @Override
+    public Lto updateLto(Long ltoId, LtoRequest ltoRequest) {
+        Lto lto = ltoRepository.findById(ltoId)
+                .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
+        lto.updateLTO(ltoRequest.getName(), ltoRequest.getContents(), ltoRequest.getGame());
         return lto;
     }
 
