@@ -16,11 +16,10 @@ public class PointController {
     private final PointService pointService;
 
     // add point
-    @PostMapping("/{studentId}/sto/{stoId}/point/add")
+    @PostMapping("/sto/{stoId}/point/add")
     public ResponseEntity addPoint(@PathVariable Long stoId,
-                                   @PathVariable Long studentId,
                                    @RequestBody AddPointRequest addPointRequest) {
-        pointService.addPoint(stoId, studentId, addPointRequest);
+        pointService.addPoint(stoId, addPointRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

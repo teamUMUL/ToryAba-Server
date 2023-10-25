@@ -6,7 +6,7 @@ import inu.thebite.toryaba.model.point.AddPointRequest;
 import java.util.List;
 
 public interface PointService {
-    void addPoint(Long stoId, Long studentId, AddPointRequest addPointRequest);
+    void addPoint(Long stoId, AddPointRequest addPointRequest);
 
     List<String> getPointList(Long stoId, Long studentId, int round);
 }

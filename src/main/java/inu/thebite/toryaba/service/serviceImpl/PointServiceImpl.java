@@ -25,21 +25,13 @@ public class PointServiceImpl implements PointService {
 
     @Transactional
     @Override
-    public void addPoint(Long stoId, Long studentId, AddPointRequest addPointRequest) {
-
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalStateException("해당 학생이 존재하지 않습니다."));
+    public void addPoint(Long stoId, AddPointRequest addPointRequest) {
 
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
-        // separate point list -> save each point
-        List<String> points = addPointRequest.getPoints();
-
-        for(String point: points) {
-            Point createPoint = Point.createPoint(addPointRequest.getRound(), point, addPointRequest.getRegistrant(), sto, student);
-            pointRepository.save(createPoint);
-        }
+        Point point = Point.createPoint(addPointRequest.getRound(), addPointRequest.getResult(), addPointRequest.getRegistrant(), sto);
+        pointRepository.save(point);
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class AddPointRequest {
 
-    private List<String> points;
+    private String result;
 
     private int round;
 
