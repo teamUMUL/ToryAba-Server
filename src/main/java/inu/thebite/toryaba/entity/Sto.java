@@ -87,8 +87,8 @@ public class Sto extends BaseEntity {
 
     // 사진
     @Column(name = "sto_image_list")
-    @OneToMany
-    private List<Image> imageList = new ArrayList<>();
+    @ElementCollection
+    private List<String> imageList = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "lto_seq")
@@ -141,7 +141,7 @@ public class Sto extends BaseEntity {
     }
 
     // update STO image list
-    public void updateImageList(List<Image> imageList) {
+    public void updateImageList(List<String> imageList) {
         this.imageList = imageList;
     }
 
