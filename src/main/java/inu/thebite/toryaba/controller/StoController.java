@@ -51,9 +51,10 @@ public class StoController {
     }
 
     // update image list(image url)
+    // when UpdateImageList request, I have to decide whether to use imageName or imageUrl, but these are same type.
     @PatchMapping("/sto/{stoId}/image/list/update")
     public ResponseEntity updateImageList(@PathVariable Long stoId, @RequestBody UpdateImageList updateImageList) {
-        List<Image> imageList = stoService.updateImageList(stoId, updateImageList);
+        List<String> imageList = stoService.updateImageList(stoId, updateImageList);
         return ResponseEntity.ok(imageList);
     }
 

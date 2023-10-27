@@ -23,7 +23,7 @@ public interface StoService {
     // Expected to be unnecessary for this
     Sto findSto(Long stoId);
 
-    List<Image> updateImageList(Long stoId, UpdateImageList updateImageList);
+    List<String> updateImageList(Long stoId, UpdateImageList updateImageList);
 
     Sto updateSto(Long stoId, UpdateStoRequest updateStoRequest);
 }

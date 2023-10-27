@@ -76,7 +76,7 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public List<Image> updateImageList(Long stoId, UpdateImageList updateImageList) {
+    public List<String> updateImageList(Long stoId, UpdateImageList updateImageList) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
