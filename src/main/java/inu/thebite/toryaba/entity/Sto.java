@@ -90,6 +90,11 @@ public class Sto extends BaseEntity {
     @ElementCollection
     private List<String> imageList = new ArrayList<>();
 
+    // 포인트
+    @Column(name = "sto_point_list")
+    @OneToMany(mappedBy = "sto")
+    private List<Point> pointList = new ArrayList<>();
+
     @ManyToOne
     @JoinColumn(name = "lto_seq")
     private Lto lto;

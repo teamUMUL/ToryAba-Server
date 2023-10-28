@@ -2,10 +2,7 @@ package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.entity.Sto;
-import inu.thebite.toryaba.model.sto.AddStoRequest;
-import inu.thebite.toryaba.model.sto.UpdateImageList;
-import inu.thebite.toryaba.model.sto.UpdateStoRequest;
-import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
+import inu.thebite.toryaba.model.sto.*;
 import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -60,8 +57,8 @@ public class StoController {
 
     // update STO round
     @PatchMapping("/sto/{stoId}/round/update")
-    public ResponseEntity updateStoRound(@PathVariable Long stoId) {
-        Sto sto = stoService.updateStoRound(stoId);
+    public ResponseEntity updateStoRound(@PathVariable Long stoId, @RequestBody UpdateStoRoundRequest updateStoRoundRequest) {
+        Sto sto = stoService.updateStoRound(stoId, updateStoRoundRequest);
         return ResponseEntity.ok(sto);
     }
 
