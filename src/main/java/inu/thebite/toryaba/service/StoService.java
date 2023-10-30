@@ -2,9 +2,7 @@ package inu.thebite.toryaba.service;
 
 import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.entity.Sto;
-import inu.thebite.toryaba.model.sto.AddStoRequest;
-import inu.thebite.toryaba.model.sto.UpdateImageList;
-import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
+import inu.thebite.toryaba.model.sto.*;
 
 import java.util.List;
 
@@ -22,5 +20,9 @@ public interface StoService {
     // Expected to be unnecessary for this
     Sto findSto(Long stoId);
 
-    List<Image> updateImageList(Long stoId, UpdateImageList updateImageList);
+    List<String> updateImageList(Long stoId, UpdateImageList updateImageList);
+
+    Sto updateSto(Long stoId, UpdateStoRequest updateStoRequest);
+
+    Sto updateStoRound(Long stoId, UpdateStoRoundRequest updateStoRoundRequest);
 }

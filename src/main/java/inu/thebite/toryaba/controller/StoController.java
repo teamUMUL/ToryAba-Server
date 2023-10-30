@@ -2,9 +2,7 @@ package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.entity.Sto;
-import inu.thebite.toryaba.model.sto.AddStoRequest;
-import inu.thebite.toryaba.model.sto.UpdateImageList;
-import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
+import inu.thebite.toryaba.model.sto.*;
 import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -42,11 +40,26 @@ public class StoController {
         return sto;
     }
 
+    // update STO contents
+    @PatchMapping("/sto/{stoId}/update")
+    public Sto updateSto(@PathVariable Long stoId, @RequestBody UpdateStoRequest updateStoRequest) {
+        Sto sto = stoService.updateSto(stoId, updateStoRequest);
+        return sto;
+    }
+
     // update image list(image url)
-    @PatchMapping("{stoId}/image/list/update")
+    // when UpdateImageList request, I have to decide whether to use imageName or imageUrl, but these are same type.
+    @PatchMapping("/sto/{stoId}/image/list/update")
     public ResponseEntity updateImageList(@PathVariable Long stoId, @RequestBody UpdateImageList updateImageList) {
-        List<Image> imageList = stoService.updateImageList(stoId, updateImageList);
+        List<String> imageList = stoService.updateImageList(stoId, updateImageList);
         return ResponseEntity.ok(imageList);
+    }
+
+    // update STO round
+    @PatchMapping("/sto/{stoId}/round/update")
+    public ResponseEntity updateStoRound(@PathVariable Long stoId, @RequestBody UpdateStoRoundRequest updateStoRoundRequest) {
+        Sto sto = stoService.updateStoRound(stoId, updateStoRoundRequest);
+        return ResponseEntity.ok(sto);
     }
 
     // get STO list
