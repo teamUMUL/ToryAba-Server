@@ -18,42 +18,42 @@ public class LtoController {
     private final LtoService ltoService;
 
     // add LTO
-    @PostMapping("/{domainId}/lto/add")
+    @PostMapping("/{domainId}/ltos")
     public Lto addLto(@PathVariable Long domainId, @RequestBody LtoRequest ltoRequest) {
         Lto lto = ltoService.addLto(domainId, ltoRequest);
         return lto;
     }
 
     // modified LTO status(stop, in progress)
-    @PatchMapping("/lto/{ltoId}/status/update")
+    @PatchMapping("/ltos/{ltoId}/status")
     public Lto updateStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
     }
 
     //modified LTO status(hit)
-    @PatchMapping("/lto/{ltoId}/hit/status/update")
+    @PatchMapping("/ltos/{ltoId}/hit/status")
     public Lto updateHitStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoHitStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
     }
 
     // update LTO contents
-    @PatchMapping("/lto/{ltoId}/update")
+    @PatchMapping("/ltos/{ltoId}")
     public Lto updateLto(@PathVariable Long ltoId, @RequestBody LtoRequest ltoRequest) {
         Lto lto = ltoService.updateLto(ltoId, ltoRequest);
         return lto;
     }
 
     // get LTO List
-    @GetMapping("/lto/list")
+    @GetMapping("/ltos")
     public List<Lto> getLtoList() {
         List<Lto> ltoList = ltoService.getLtoList();
         return ltoList;
     }
 
     // delete LTO
-    @DeleteMapping("/lto/{ltoId}/delete")
+    @DeleteMapping("/ltos/{ltoId}")
     public ResponseEntity deleteLto(@PathVariable Long ltoId) {
         ltoService.deleteLto(ltoId);
         return ResponseEntity.status(HttpStatus.OK).build();
