@@ -36,7 +36,7 @@ public class StoServiceImpl implements StoService {
                 addStoRequest.getUrgeContent(), addStoRequest.getEnforceContent(), addStoRequest.getMemo(), lto);
 
         // when STO is made, point is made together.
-        Point point = Point.createPoint(addStoRequest.getRegistrant(), sto);
+        Point point = Point.createPoint(/*addStoRequest.getRegistrant(), */sto);
         pointRepository.save(point);
         stoRepository.save(sto);
         return sto;
@@ -95,7 +95,7 @@ public class StoServiceImpl implements StoService {
         sto.updateStoRound(sto.getRound());
 
         // when STO's round update, point is made together.
-        Point point = Point.createPoint(updateStoRoundRequest.getRegistrant(), sto);
+        Point point = Point.createPoint(/*updateStoRoundRequest.getRegistrant(), */sto);
         pointRepository.save(point);
         return sto;
     }

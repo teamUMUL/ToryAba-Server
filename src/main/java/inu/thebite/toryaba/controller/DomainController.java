@@ -19,14 +19,14 @@ public class DomainController {
     private final DomainService domainService;
 
     // add domain
-    @PostMapping("/")
+    @PostMapping()
     public Domain addDomain(@RequestBody AddDomainRequest addDomainRequest) {
         Domain domain = domainService.addDomain(addDomainRequest);
         return domain;
     }
 
     // get domain list
-    @GetMapping("/")
+    @GetMapping()
     public List<Domain> getDomainList() {
         List<Domain> domainList = domainService.getDomainList();
         return domainList;

@@ -30,7 +30,7 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
 
-        point.addPoint(addPointRequest.getResult(), addPointRequest.getRegistrant());
+        point.addPoint(addPointRequest.getResult()/*, addPointRequest.getRegistrant()*/);
     }
 
     @Transactional
@@ -42,7 +42,7 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
 
-        point.updatePoint(updatePointRequest.getPoints(), updatePointRequest.getRegistrant());
+        point.updatePoint(updatePointRequest.getPoints()/*, updatePointRequest.getRegistrant()*/);
     }
 
     @Override

@@ -19,7 +19,7 @@ public class CenterController {
     private final CenterService centerService;
 
     // add center
-    @PostMapping("/")
+    @PostMapping()
     public Center addCenter(@RequestBody CenterRequest centerRequest) {
         Center center = centerService.addCenter(centerRequest);
         return center;
@@ -41,7 +41,7 @@ public class CenterController {
     }
 
     // get center list
-    @GetMapping("/")
+    @GetMapping()
     public List<Center> getCenterList() {
         List<Center> centerList = centerService.getCenterList();
         return centerList;
