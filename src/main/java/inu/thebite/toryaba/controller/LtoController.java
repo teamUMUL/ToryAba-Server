@@ -1,7 +1,7 @@
 package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Lto;
-import inu.thebite.toryaba.model.lto.AddLtoRequest;
+import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 import inu.thebite.toryaba.service.LtoService;
 import lombok.RequiredArgsConstructor;
@@ -19,8 +19,8 @@ public class LtoController {
 
     // add LTO
     @PostMapping("/{domainId}/lto/add")
-    public Lto addLto(@PathVariable Long domainId, @RequestBody AddLtoRequest addLtoRequest) {
-        Lto lto = ltoService.addLto(domainId,addLtoRequest);
+    public Lto addLto(@PathVariable Long domainId, @RequestBody LtoRequest ltoRequest) {
+        Lto lto = ltoService.addLto(domainId, ltoRequest);
         return lto;
     }
 
@@ -36,6 +36,13 @@ public class LtoController {
     public Lto updateHitStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
         Lto updateLto = ltoService.updateLtoHitStatus(ltoId, updateLtoStatusRequest);
         return updateLto;
+    }
+
+    // update LTO contents
+    @PatchMapping("/lto/{ltoId}/update")
+    public Lto updateLto(@PathVariable Long ltoId, @RequestBody LtoRequest ltoRequest) {
+        Lto lto = ltoService.updateLto(ltoId, ltoRequest);
+        return lto;
     }
 
     // get LTO List

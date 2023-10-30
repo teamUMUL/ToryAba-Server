@@ -1,13 +1,11 @@
 package inu.thebite.toryaba.service.serviceImpl;
 
-import inu.thebite.toryaba.entity.Image;
 import inu.thebite.toryaba.entity.Lto;
+import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.entity.Sto;
-import inu.thebite.toryaba.model.sto.AddStoRequest;
-import inu.thebite.toryaba.model.sto.UpdateImageList;
-import inu.thebite.toryaba.model.sto.UpdateStoRequest;
-import inu.thebite.toryaba.model.sto.UpdateStoStatusRequest;
+import inu.thebite.toryaba.model.sto.*;
 import inu.thebite.toryaba.repository.LtoRepository;
+import inu.thebite.toryaba.repository.PointRepository;
 import inu.thebite.toryaba.repository.StoRepository;
 import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
@@ -23,6 +21,7 @@ public class StoServiceImpl implements StoService {
 
     private final StoRepository stoRepository;
     private final LtoRepository ltoRepository;
+    private final PointRepository pointRepository;
 
     @Transactional
     @Override
@@ -36,6 +35,9 @@ public class StoServiceImpl implements StoService {
                 addStoRequest.getCount(), addStoRequest.getGoal(), addStoRequest.getUrgeType(),
                 addStoRequest.getUrgeContent(), addStoRequest.getEnforceContent(), addStoRequest.getMemo(), lto);
 
+        // when STO is made, point is made together.
+        Point point = Point.createPoint(addStoRequest.getRegistrant(), sto);
+        pointRepository.save(point);
         stoRepository.save(sto);
         return sto;
     }
@@ -76,12 +78,26 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public List<Image> updateImageList(Long stoId, UpdateImageList updateImageList) {
+    public List<String> updateImageList(Long stoId, UpdateImageList updateImageList) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
         sto.updateImageList(updateImageList.getImageList().stream().toList());
         return sto.getImageList();
+    }
+
+    @Transactional
+    @Override
+    public Sto updateStoRound(Long stoId, UpdateStoRoundRequest updateStoRoundRequest) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        sto.updateStoRound(sto.getRound());
+
+        // when STO's round update, point is made together.
+        Point point = Point.createPoint(updateStoRoundRequest.getRegistrant(), sto);
+        pointRepository.save(point);
+        return sto;
     }
 
     @Override
