@@ -2,12 +2,10 @@ package inu.thebite.toryaba.service.serviceImpl;
 
 import inu.thebite.toryaba.entity.Domain;
 import inu.thebite.toryaba.entity.Lto;
-import inu.thebite.toryaba.entity.Student;
 import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 import inu.thebite.toryaba.repository.DomainRepository;
 import inu.thebite.toryaba.repository.LtoRepository;
-import inu.thebite.toryaba.repository.StudentRepository;
 import inu.thebite.toryaba.service.LtoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,20 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LtoServiceImpl implements LtoService {
 
-    private final StudentRepository studentRepository;
     private final LtoRepository ltoRepository;
     private final DomainRepository domainRepository;
 
     @Override
     @Transactional
-    public Lto addLto(Long studentId, Long domainId, LtoRequest ltoRequest) {
-        Student student = studentRepository.findById(studentId)
-                .orElseThrow(() -> new IllegalStateException("선택한 아이의 정보가 존재하지 않습니다."));
+    public Lto addLto(Long domainId, LtoRequest ltoRequest) {
 
         Domain domain = domainRepository.findById(domainId)
                 .orElseThrow(() -> new IllegalStateException("해당 영역이 존재하지 않습니다."));
         List<Lto> ltoList = ltoRepository.findAllByDomainId(domain.getId());
-        Lto lto = Lto.createLto(ltoList.size() + 1, ltoRequest.getName(), ltoRequest.getContents(), ltoRequest.getGame(), domain, student);
+        Lto lto = Lto.createLto(ltoList.size() + 1, ltoRequest.getName(), ltoRequest.getContents(), ltoRequest.getGame(), domain);
         Lto saveLto = ltoRepository.save(lto);
         return saveLto;
     }

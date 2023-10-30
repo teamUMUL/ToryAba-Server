@@ -18,11 +18,9 @@ public class LtoController {
     private final LtoService ltoService;
 
     // add LTO
-    @PostMapping("/{studentId}/{domainId}/ltos")
-    public Lto addLto(@PathVariable Long studentId,
-                      @PathVariable Long domainId,
-                      @RequestBody LtoRequest ltoRequest) {
-        Lto lto = ltoService.addLto(studentId, domainId, ltoRequest);
+    @PostMapping("/{domainId}/ltos")
+    public Lto addLto(@PathVariable Long domainId, @RequestBody LtoRequest ltoRequest) {
+        Lto lto = ltoService.addLto(domainId, ltoRequest);
         return lto;
     }
 

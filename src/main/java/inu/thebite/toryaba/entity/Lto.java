@@ -56,11 +56,7 @@ public class Lto extends BaseEntity {
     @JoinColumn(name = "domain_seq")
     private Domain domain;
 
-    @ManyToOne
-    @JoinColumn(name = "student_seq")
-    private Student student;
-
-    public static Lto createLto(int templateNum, String name, String content, String game, Domain domain, Student student) {
+    public static Lto createLto(int templateNum, String name, String content, String game, Domain domain) {
         Lto lto = new Lto();
         lto.templateNum = templateNum;
         lto.status = "READY";
@@ -71,7 +67,6 @@ public class Lto extends BaseEntity {
         lto.registerDate = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         lto.delYN = "N";
         lto.domain = domain;
-        lto.student = student;
         return lto;
     }
 
