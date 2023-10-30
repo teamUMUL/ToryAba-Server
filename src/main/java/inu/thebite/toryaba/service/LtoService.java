@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface LtoService {
 
-    Lto addLto(Long domainId, LtoRequest ltoRequest);
+    Lto addLto(Long studentId, Long domainId, LtoRequest ltoRequest);
 
     Lto updateLtoStatus(Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
 
