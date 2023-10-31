@@ -11,4 +11,6 @@ public interface PointService {
     List<String> getPointList(Long stoId);
 
     void updatePoint(Long stoId, UpdatePointRequest updatePointRequest);
+
+    void deletePoint(Long stoId);
 }

@@ -21,5 +21,5 @@ public interface StoService {
 
     Sto updateSto(Long stoId, UpdateStoRequest updateStoRequest);
 
-    Sto updateStoRound(Long stoId, UpdateStoRoundRequest updateStoRoundRequest);
+    Sto updateStoRound(Long stoId/*, UpdateStoRoundRequest updateStoRoundRequest*/);
 }

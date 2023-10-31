@@ -1,6 +1,7 @@
 package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Image;
+import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.sto.*;
 import inu.thebite.toryaba.service.StoService;
@@ -56,9 +57,13 @@ public class StoController {
     }
 
     // update STO round
-    @PatchMapping("/stos/{stoId}/round")
-    public ResponseEntity updateStoRound(@PathVariable Long stoId, @RequestBody UpdateStoRoundRequest updateStoRoundRequest) {
-        Sto sto = stoService.updateStoRound(stoId, updateStoRoundRequest);
+    @PatchMapping("/stos/{stoId}/rounds")
+    public ResponseEntity updateStoRound(@PathVariable Long stoId/*, @RequestBody UpdateStoRoundRequest updateStoRoundRequest*/) {
+        Sto sto = stoService.updateStoRound(stoId/*, updateStoRoundRequest*/);
+
+        for(Point p : sto.getPointList()) {
+            System.out.println("p.getPoints().stream().toList() = " + p.getPoints().stream().toList());
+        }
         return ResponseEntity.ok(sto);
     }
 

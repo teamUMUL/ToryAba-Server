@@ -10,6 +10,6 @@ public class AddPointRequest {
 
     private String result;
 
-    private String registrant;
+//    private String registrant;
 
 }

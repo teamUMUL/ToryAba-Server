@@ -32,6 +32,13 @@ public class PointController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    // delete point
+    @DeleteMapping("/stos/{stoId}/points")
+    public ResponseEntity deletePoint(@PathVariable Long stoId) {
+        pointService.deletePoint(stoId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     // get point list
     @GetMapping("/stos/{stoId}/points")
     public List<String> getPointList(@PathVariable Long stoId) {

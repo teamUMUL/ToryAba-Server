@@ -66,4 +66,10 @@ public class Point extends BaseEntity {
 //        this.registrant = registrant;
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
+
+    public void updateRound(int round, List<String> points) {
+        this.round = round;
+        this.points = points;
+        this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    }
 }
