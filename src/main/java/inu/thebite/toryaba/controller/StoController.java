@@ -60,10 +60,6 @@ public class StoController {
     @PatchMapping("/stos/{stoId}/rounds")
     public ResponseEntity updateStoRound(@PathVariable Long stoId/*, @RequestBody UpdateStoRoundRequest updateStoRoundRequest*/) {
         Sto sto = stoService.updateStoRound(stoId/*, updateStoRoundRequest*/);
-
-        for(Point p : sto.getPointList()) {
-            System.out.println("p.getPoints().stream().toList() = " + p.getPoints().stream().toList());
-        }
         return ResponseEntity.ok(sto);
     }
 

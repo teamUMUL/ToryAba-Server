@@ -68,12 +68,7 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("조건에 해당하는 point row가 존재하지 않습니다."));
 
-        System.out.println("sto.getRound() = " + sto.getRound());
         List<String> pointList = pointRepository.findPointsByStoIdAndRound(sto.getRound(), point.getId());
-
-        for(String s : pointList) {
-            System.out.println("s = " + s);
-        }
         return pointList;
     }
 }
