@@ -30,7 +30,7 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
 
-        point.addPoint(addPointRequest.getResult(), addPointRequest.getRegistrant());
+        point.addPoint(addPointRequest.getResult()/*, addPointRequest.getRegistrant()*/);
     }
 
     @Transactional
@@ -42,7 +42,21 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
 
-        point.updatePoint(updatePointRequest.getPoints(), updatePointRequest.getRegistrant());
+        point.updatePoint(updatePointRequest.getPoints()/*, updatePointRequest.getRegistrant()*/);
+    }
+
+    @Transactional
+    @Override
+    public void deletePoint(Long stoId) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
+                .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
+
+        int size = point.getPoints().size();
+        point.getPoints().remove(size-1);
+        point.updatePoint(point.getPoints());
     }
 
     @Override
@@ -51,7 +65,10 @@ public class PointServiceImpl implements PointService {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
-        List<String> pointList = pointRepository.findPointsByStoIdAndRound(sto.getId(), sto.getRound());
+        Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
+                .orElseThrow(() -> new IllegalStateException("조건에 해당하는 point row가 존재하지 않습니다."));
+
+        List<String> pointList = pointRepository.findPointsByStoIdAndRound(sto.getRound(), point.getId());
         return pointList;
     }
 }
