@@ -92,10 +92,10 @@ public class Sto extends BaseEntity {
 
     // 포인트
     @Column(name = "sto_point_list")
-    @OneToMany(mappedBy = "sto")
+    @OneToMany(mappedBy = "sto", cascade = CascadeType.ALL)
     private List<Point> pointList = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "lto_seq")
     private Lto lto;
 

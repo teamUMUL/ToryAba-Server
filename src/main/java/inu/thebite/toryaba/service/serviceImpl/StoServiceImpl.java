@@ -118,7 +118,7 @@ public class StoServiceImpl implements StoService {
 
     public void addNewPointList(Sto sto, UpdateStoRoundRequest updateStoRoundRequest) {
         Point point = Point.createPoint(updateStoRoundRequest.getRegistrant(), sto);
-        point.updateRound(sto.getRound(), point.getPoints(), updateStoRoundRequest.getPlusRate(), updateStoRoundRequest.getMinusRate());
+        point.updateRound(sto.getRound(), point.getPoints());
         pointRepository.save(point);
     }
 }

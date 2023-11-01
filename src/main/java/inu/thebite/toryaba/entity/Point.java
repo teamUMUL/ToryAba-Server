@@ -50,7 +50,7 @@ public class Point extends BaseEntity {
     private String registerDate;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sto_seq")
     private Sto sto;
 
@@ -59,7 +59,7 @@ public class Point extends BaseEntity {
         point.round = 1;
         point.plusRate = 0F;
         point.minusRate = 0F;
-        point.registrant = "테스트";
+        point.registrant = registrant;
         point.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         point.sto = sto;
         return point;
@@ -77,11 +77,9 @@ public class Point extends BaseEntity {
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 
-    public void updateRound(int round, List<String> points, Float plusRate, Float minusRate) {
+    public void updateRound(int round, List<String> points) {
         this.round = round;
         this.points = points;
-        this.plusRate = plusRate;
-        this.minusRate = minusRate;
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 }
