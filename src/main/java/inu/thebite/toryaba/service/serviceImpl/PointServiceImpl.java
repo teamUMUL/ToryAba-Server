@@ -2,6 +2,7 @@ package inu.thebite.toryaba.service.serviceImpl;
 
 import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.entity.Sto;
+import inu.thebite.toryaba.model.lto.LtoGraphResponse;
 import inu.thebite.toryaba.model.point.AddPointRequest;
 import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
@@ -12,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -69,7 +71,23 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("조건에 해당하는 point row가 존재하지 않습니다."));
 
-        List<String> pointList = pointRepository.findPointsByStoIdAndRound(sto.getRound(), point.getId());
+        List<String> pointList = pointRepository.findPointsByStoIdAndRound(point.getId());
         return pointList;
+    }
+
+    @Override
+    public List<List<Float>> getGraphValue(Long stoId) {
+        stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        List<Float> rateList = new ArrayList<>();
+        List<List<Float>> result = new ArrayList<>();
+        Point point = pointRepository.findByStoId(stoId);
+        rateList.add(point.getPlusRate());
+        rateList.add(point.getMinusRate());
+
+        result.add(rateList);
+
+        return result;
     }
 }

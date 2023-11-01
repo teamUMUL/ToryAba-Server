@@ -59,7 +59,7 @@ public class Point extends BaseEntity {
         point.round = 1;
         point.plusRate = 0F;
         point.minusRate = 0F;
-        point.registrant = registrant;
+        point.registrant = "테스트";
         point.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         point.sto = sto;
         return point;

@@ -1,5 +1,6 @@
 package inu.thebite.toryaba.service;
 
+import inu.thebite.toryaba.model.lto.LtoGraphResponse;
 import inu.thebite.toryaba.model.point.AddPointRequest;
 import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
@@ -12,6 +13,8 @@ public interface PointService {
     List<String> getPointList(Long stoId);
 
     void updatePoint(Long stoId, UpdatePointRequest updatePointRequest);
+
+    List<List<Float>> getGraphValue(Long stoId);
 
     void deletePoint(Long stoId, DeletePointRequest deletePointRequest);
 }

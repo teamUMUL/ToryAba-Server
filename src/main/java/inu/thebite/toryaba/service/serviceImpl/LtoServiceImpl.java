@@ -2,15 +2,20 @@ package inu.thebite.toryaba.service.serviceImpl;
 
 import inu.thebite.toryaba.entity.Domain;
 import inu.thebite.toryaba.entity.Lto;
+import inu.thebite.toryaba.entity.Sto;
+import inu.thebite.toryaba.model.lto.LtoGraphResponse;
 import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 import inu.thebite.toryaba.repository.DomainRepository;
 import inu.thebite.toryaba.repository.LtoRepository;
 import inu.thebite.toryaba.service.LtoService;
+import inu.thebite.toryaba.service.PointService;
+import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,6 +25,8 @@ public class LtoServiceImpl implements LtoService {
 
     private final LtoRepository ltoRepository;
     private final DomainRepository domainRepository;
+    private final StoService stoService;
+    private final PointService pointService;
 
     @Override
     @Transactional
@@ -65,6 +72,21 @@ public class LtoServiceImpl implements LtoService {
     public List<Lto> getLtoList() {
         List<Lto> LtoList = ltoRepository.findAll();
         return LtoList;
+    }
+
+    @Override
+    public List<LtoGraphResponse> getLtoGraph(Long ltoId) {
+        ltoRepository.findById(ltoId)
+                .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
+
+        List<Sto> stoList = stoService.getStoList();
+        List<LtoGraphResponse> result = new ArrayList<>();
+
+        for(Sto sto : stoList) {
+            List<List<Float>> rateValue = pointService.getGraphValue(sto.getId());
+            result.add(LtoGraphResponse.response(sto.getId(), rateValue));
+        }
+        return result;
     }
 
     @Transactional
