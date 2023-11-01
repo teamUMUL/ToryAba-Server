@@ -58,8 +58,8 @@ public class StoController {
 
     // update STO round
     @PatchMapping("/stos/{stoId}/rounds")
-    public ResponseEntity updateStoRound(@PathVariable Long stoId/*, @RequestBody UpdateStoRoundRequest updateStoRoundRequest*/) {
-        Sto sto = stoService.updateStoRound(stoId/*, updateStoRoundRequest*/);
+    public ResponseEntity updateStoRound(@PathVariable Long stoId, @RequestBody UpdateStoRoundRequest updateStoRoundRequest) {
+        Sto sto = stoService.updateStoRound(stoId, updateStoRoundRequest);
         return ResponseEntity.ok(sto);
     }
 

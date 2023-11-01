@@ -36,7 +36,7 @@ public class StoServiceImpl implements StoService {
                 addStoRequest.getUrgeContent(), addStoRequest.getEnforceContent(), addStoRequest.getMemo(), lto);
 
         // when STO is made, point is made together.
-        Point point = Point.createPoint(/*addStoRequest.getRegistrant(), */sto);
+        Point point = Point.createPoint(addStoRequest.getRegistrant(), sto);
         pointRepository.save(point);
         stoRepository.save(sto);
         return sto;
@@ -88,14 +88,14 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public Sto updateStoRound(Long stoId/*, UpdateStoRoundRequest updateStoRoundRequest*/) {
+    public Sto updateStoRound(Long stoId, UpdateStoRoundRequest updateStoRoundRequest) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
         sto.updateStoRound(sto.getRound());
 
         // when STO's round update, point is made together.
-        addNewPointList(sto);
+        addNewPointList(sto, updateStoRoundRequest);
         return sto;
     }
 
@@ -116,9 +116,9 @@ public class StoServiceImpl implements StoService {
         }
     }
 
-    public void addNewPointList(Sto sto) {
-        Point point = Point.createPoint(/*updateStoRoundRequest.getRegistrant(), */sto);
-        point.updateRound(sto.getRound(), point.getPoints());
+    public void addNewPointList(Sto sto, UpdateStoRoundRequest updateStoRoundRequest) {
+        Point point = Point.createPoint(updateStoRoundRequest.getRegistrant(), sto);
+        point.updateRound(sto.getRound(), point.getPoints(), updateStoRoundRequest.getPlusRate(), updateStoRoundRequest.getMinusRate());
         pointRepository.save(point);
     }
 }

@@ -3,6 +3,7 @@ package inu.thebite.toryaba.service.serviceImpl;
 import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.point.AddPointRequest;
+import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
 import inu.thebite.toryaba.repository.PointRepository;
 import inu.thebite.toryaba.repository.StoRepository;
@@ -30,7 +31,7 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
 
-        point.addPoint(addPointRequest.getResult()/*, addPointRequest.getRegistrant()*/);
+        point.addPoint(addPointRequest.getResult(), addPointRequest.getRegistrant());
     }
 
     @Transactional
@@ -42,12 +43,12 @@ public class PointServiceImpl implements PointService {
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
                 .orElseThrow(() -> new IllegalStateException("해당 STO에 대한 point list가 존재하지 않습니다."));
 
-        point.updatePoint(updatePointRequest.getPoints()/*, updatePointRequest.getRegistrant()*/);
+        point.updatePoint(updatePointRequest.getPoints(), updatePointRequest.getRegistrant());
     }
 
     @Transactional
     @Override
-    public void deletePoint(Long stoId) {
+    public void deletePoint(Long stoId, DeletePointRequest deletePointRequest) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
@@ -56,7 +57,7 @@ public class PointServiceImpl implements PointService {
 
         int size = point.getPoints().size();
         point.getPoints().remove(size-1);
-        point.updatePoint(point.getPoints());
+        point.updatePoint(point.getPoints(), deletePointRequest.getRegistrant());
     }
 
     @Override

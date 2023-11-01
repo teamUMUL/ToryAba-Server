@@ -5,5 +5,9 @@ import lombok.Data;
 @Data
 public class UpdateStoRoundRequest {
 
+    private Float plusRate;
+
+    private Float minusRate;
+
     private String registrant;
 }
