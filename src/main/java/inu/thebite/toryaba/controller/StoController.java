@@ -29,7 +29,8 @@ public class StoController {
     @PatchMapping("/stos/{stoId}/status")
     public Sto updateStoStatus(@PathVariable Long stoId,
                                @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
-        Sto sto = stoService.updateStoStatus(stoId, updateStoStatusRequest);
+        Sto sto = stoService.updateStoStatus(stoId, updateStoStatusRequest.getStatus());
+        System.out.println("sto.getStatus() = " + sto.getStatus());
         return sto;
     }
 
@@ -37,7 +38,8 @@ public class StoController {
     @PatchMapping("/stos/{stoId}/hit/status")
     public Sto updateStoHitStatus(@PathVariable Long stoId,
                                   @RequestBody UpdateStoStatusRequest updateStoStatusRequest) {
-        Sto sto = stoService.updateStoHitStatus(stoId, updateStoStatusRequest);
+        Sto sto = stoService.updateStoHitStatus(stoId, updateStoStatusRequest.getStatus());
+        System.out.println("sto.hit.getStatus() = " + sto.getStatus());
         return sto;
     }
 
@@ -57,12 +59,17 @@ public class StoController {
     }
 
     // update STO round
-    @PatchMapping("/stos/{stoId}/rounds")
-    public ResponseEntity updateStoRound(@PathVariable Long stoId/*, @RequestBody UpdateStoRoundRequest updateStoRoundRequest*/) {
-        Sto sto = stoService.updateStoRound(stoId/*, updateStoRoundRequest*/);
+    @PatchMapping("/stos/{stoId}/round")
+    public ResponseEntity updateStoRound(@PathVariable Long stoId, @RequestBody UpdateStoRoundRequest updateStoRoundRequest) {
+        Sto sto = stoService.updateStoRound(stoId, updateStoRoundRequest);
         return ResponseEntity.ok(sto);
     }
 
+    @PatchMapping("/stos/{stoId}/hit/round")
+    public ResponseEntity updateStoHitRound(@PathVariable Long stoId, @RequestBody UpdateStoRoundRequest updateStoRoundRequest) {
+        Sto sto = stoService.updateStoHitRound(stoId, updateStoRoundRequest);
+        return ResponseEntity.ok(sto);
+    }
     // get STO list
     @GetMapping("/stos")
     public List<Sto> getStoList() {

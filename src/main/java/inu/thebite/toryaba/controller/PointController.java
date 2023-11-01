@@ -2,6 +2,7 @@ package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.model.point.AddPointRequest;
+import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
 import inu.thebite.toryaba.service.PointService;
 import lombok.RequiredArgsConstructor;

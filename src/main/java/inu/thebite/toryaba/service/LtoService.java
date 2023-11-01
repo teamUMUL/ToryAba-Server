@@ -2,6 +2,7 @@ package inu.thebite.toryaba.service;
 
 
 import inu.thebite.toryaba.entity.Lto;
+import inu.thebite.toryaba.model.lto.LtoGraphResponse;
 import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 
@@ -20,4 +21,6 @@ public interface LtoService {
     Lto updateLtoHitStatus(Long ltoId, UpdateLtoStatusRequest updateLtoStatusRequest);
 
     Lto updateLto(Long ltoId, LtoRequest ltoRequest);
+
+    List<LtoGraphResponse> getLtoGraph(Long ltoId);
 }

@@ -12,8 +12,10 @@ import java.util.Optional;
 @Repository
 public interface PointRepository extends JpaRepository<Point, Long> {
 
-    @Query(value = "SELECT p.point_rslt_cd FROM tb_point t JOIN point_points p WHERE t.point_round = :round AND p.point_point_seq = :pointId", nativeQuery = true)
-    List<String> findPointsByStoIdAndRound(@Param("round") int round, @Param("pointId") Long pointId);
+    @Query(value = "SELECT p.point_rslt_cd FROM point_points p WHERE p.point_point_seq = :pointId", nativeQuery = true)
+    List<String> findPointsByStoIdAndRound(@Param("pointId") Long pointId);
 
     Optional<Point> findByStoIdAndRound(Long stoId, int round);
+
+    Point findByStoId(Long stoId);
 }

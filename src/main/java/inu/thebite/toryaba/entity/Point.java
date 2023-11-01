@@ -33,37 +33,47 @@ public class Point extends BaseEntity {
     @ElementCollection
     private List<String> points = new ArrayList<>();
 
+    // + 비율
+    @Column(name = "point_plus_rate")
+    private Float plusRate;
+
+    // - 비율
+    @Column(name = "point_minus_rate")
+    private Float minusRate;
+
     // 등록자
-//    @Column(name = "point_reg_mbr_seq", length = 11, nullable = false)
-//    private String registrant;
+    @Column(name = "point_reg_mbr_seq", length = 11, nullable = false)
+    private String registrant;
 
     // 등록일자
     @Column(name = "point_reg_dt", nullable = false)
     private String registerDate;
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "sto_seq")
     private Sto sto;
 
-    public static Point createPoint(/*String registrant,*/ Sto sto) {
+    public static Point createPoint(String registrant, Sto sto) {
         Point point = new Point();
         point.round = 1;
-//        point.registrant = registrant;
+        point.plusRate = 0F;
+        point.minusRate = 0F;
+        point.registrant = registrant;
         point.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
         point.sto = sto;
         return point;
     }
 
-    public void addPoint(String point/*, String registrant*/) {
+    public void addPoint(String point, String registrant) {
         this.points.add(point);
-//        this.registrant = registrant;
+        this.registrant = registrant;
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 
-    public void updatePoint(List<String> points/*, String registrant*/) {
+    public void updatePoint(List<String> points, String registrant) {
         this.points = points;
-//        this.registrant = registrant;
+        this.registrant = registrant;
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
 
@@ -71,5 +81,10 @@ public class Point extends BaseEntity {
         this.round = round;
         this.points = points;
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
+    }
+
+    public void updateValue(Float plus, Float minus) {
+        this.plusRate = plus;
+        this.minusRate = minus;
     }
 }
