@@ -9,5 +9,7 @@ public class UpdateStoRoundRequest {
 
     private Float minusRate;
 
+    private String status;
+
     private String registrant;
 }

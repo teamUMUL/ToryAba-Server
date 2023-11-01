@@ -50,7 +50,7 @@ public class PointServiceImpl implements PointService {
 
     @Transactional
     @Override
-    public void deletePoint(Long stoId, DeletePointRequest deletePointRequest) {
+    public void deletePoint(Long stoId) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
@@ -59,7 +59,7 @@ public class PointServiceImpl implements PointService {
 
         int size = point.getPoints().size();
         point.getPoints().remove(size-1);
-        point.updatePoint(point.getPoints(), deletePointRequest.getRegistrant());
+        point.updatePoint(point.getPoints(), "테스트");
     }
 
     @Override
@@ -90,5 +90,16 @@ public class PointServiceImpl implements PointService {
         result.add(rateList);
 
         return result;
+    }
+
+    @Override
+    public void insertValue(Long stoId, Float plusRate, Float minusRate) {
+        Sto sto = stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        point.updateValue(plusRate, minusRate);
     }
 }

@@ -82,4 +82,9 @@ public class Point extends BaseEntity {
         this.points = points;
         this.registerDate = LocalDateTime.now(ZoneId.of("Asia/Seoul")).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"));
     }
+
+    public void updateValue(Float plus, Float minus) {
+        this.plusRate = plus;
+        this.minusRate = minus;
+    }
 }

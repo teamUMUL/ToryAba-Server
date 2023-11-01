@@ -7,6 +7,7 @@ import inu.thebite.toryaba.model.sto.*;
 import inu.thebite.toryaba.repository.LtoRepository;
 import inu.thebite.toryaba.repository.PointRepository;
 import inu.thebite.toryaba.repository.StoRepository;
+import inu.thebite.toryaba.service.PointService;
 import inu.thebite.toryaba.service.StoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,6 +22,8 @@ public class StoServiceImpl implements StoService {
 
     private final StoRepository stoRepository;
     private final LtoRepository ltoRepository;
+    private final PointService pointService;
+
     private final PointRepository pointRepository;
 
     @Transactional
@@ -44,21 +47,20 @@ public class StoServiceImpl implements StoService {
 
     @Transactional
     @Override
-    public Sto updateStoStatus( Long stoId, UpdateStoStatusRequest updateStoStatusRequest) {
+    public Sto updateStoStatus(Long stoId, String status) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
-
-        sto.updateStoStatus(updateStoStatusRequest.getStatus());
+        sto.updateStoStatus(status);
         return sto;
     }
 
     @Transactional
     @Override
-    public Sto updateStoHitStatus(Long stoId, UpdateStoStatusRequest updateStoStatusRequest) {
+    public Sto updateStoHitStatus(Long stoId, String status) {
         Sto sto = stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
-        sto.updateStoHitStatus(updateStoStatusRequest.getStatus());
+        sto.updateStoHitStatus(status);
         return sto;
     }
 
@@ -89,9 +91,26 @@ public class StoServiceImpl implements StoService {
     @Transactional
     @Override
     public Sto updateStoRound(Long stoId, UpdateStoRoundRequest updateStoRoundRequest) {
-        Sto sto = stoRepository.findById(stoId)
+        stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
+        Sto sto = updateStoStatus(stoId, updateStoRoundRequest.getStatus());
+        pointService.insertValue(stoId, updateStoRoundRequest.getPlusRate(), updateStoRoundRequest.getMinusRate());
+        sto.updateStoRound(sto.getRound());
+
+        // when STO's round update, point is made together.
+        addNewPointList(sto, updateStoRoundRequest);
+        return sto;
+    }
+
+    @Transactional
+    @Override
+    public Sto updateStoHitRound(Long stoId, UpdateStoRoundRequest updateStoRoundRequest) {
+        stoRepository.findById(stoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+
+        Sto sto = updateStoHitStatus(stoId, updateStoRoundRequest.getStatus());
+        pointService.insertValue(stoId, updateStoRoundRequest.getPlusRate(), updateStoRoundRequest.getMinusRate());
         sto.updateStoRound(sto.getRound());
 
         // when STO's round update, point is made together.

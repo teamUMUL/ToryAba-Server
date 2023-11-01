@@ -35,8 +35,8 @@ public class PointController {
 
     // delete point
     @DeleteMapping("/stos/{stoId}/points")
-    public ResponseEntity deletePoint(@PathVariable Long stoId, @RequestBody DeletePointRequest deletePointRequest) {
-        pointService.deletePoint(stoId, deletePointRequest);
+    public ResponseEntity deletePoint(@PathVariable Long stoId) {
+        pointService.deletePoint(stoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

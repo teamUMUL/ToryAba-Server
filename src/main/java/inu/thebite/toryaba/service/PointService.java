@@ -16,5 +16,7 @@ public interface PointService {
 
     List<List<Float>> getGraphValue(Long stoId);
 
-    void deletePoint(Long stoId, DeletePointRequest deletePointRequest);
+    void deletePoint(Long stoId);
+
+    void insertValue(Long stoId, Float plusRate, Float minusRate);
 }
