@@ -1,6 +1,7 @@
 package inu.thebite.toryaba.service;
 
 import inu.thebite.toryaba.model.point.AddPointRequest;
+import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
 
 import java.util.List;
@@ -12,5 +13,5 @@ public interface PointService {
 
     void updatePoint(Long stoId, UpdatePointRequest updatePointRequest);
 
-    void deletePoint(Long stoId);
+    void deletePoint(Long stoId, DeletePointRequest deletePointRequest);
 }

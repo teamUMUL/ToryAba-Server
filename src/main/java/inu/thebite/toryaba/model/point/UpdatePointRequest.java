@@ -10,5 +10,5 @@ public class UpdatePointRequest {
 
     private List<String> points;
 
-//    private String registrant;
+    private String registrant;
 }
