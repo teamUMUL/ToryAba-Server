@@ -1,6 +1,7 @@
 package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Lto;
+import inu.thebite.toryaba.model.lto.LtoGraphResponse;
 import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 import inu.thebite.toryaba.service.LtoService;
@@ -50,6 +51,12 @@ public class LtoController {
     public List<Lto> getLtoList() {
         List<Lto> ltoList = ltoService.getLtoList();
         return ltoList;
+    }
+
+    @GetMapping("/ltos/{ltoId}/graphs")
+    public List<LtoGraphResponse> getLtoGraph(@PathVariable Long ltoId) {
+        List<LtoGraphResponse> response = ltoService.getLtoGraph(ltoId);
+        return response;
     }
 
     // delete LTO

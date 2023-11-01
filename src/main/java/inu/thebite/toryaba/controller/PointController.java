@@ -2,6 +2,7 @@ package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.model.point.AddPointRequest;
+import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
 import inu.thebite.toryaba.service.PointService;
 import lombok.RequiredArgsConstructor;
@@ -34,8 +35,8 @@ public class PointController {
 
     // delete point
     @DeleteMapping("/stos/{stoId}/points")
-    public ResponseEntity deletePoint(@PathVariable Long stoId) {
-        pointService.deletePoint(stoId);
+    public ResponseEntity deletePoint(@PathVariable Long stoId, @RequestBody DeletePointRequest deletePointRequest) {
+        pointService.deletePoint(stoId, deletePointRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

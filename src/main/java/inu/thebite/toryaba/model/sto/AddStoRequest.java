@@ -22,6 +22,6 @@ public class AddStoRequest {
 
     private String memo;
 
-    /*private String registrant;*/
+    private String registrant;
 
 }
