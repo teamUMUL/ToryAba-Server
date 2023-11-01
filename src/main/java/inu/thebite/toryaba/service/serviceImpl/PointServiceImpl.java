@@ -72,6 +72,7 @@ public class PointServiceImpl implements PointService {
                 .orElseThrow(() -> new IllegalStateException("조건에 해당하는 point row가 존재하지 않습니다."));
 
         List<String> pointList = pointRepository.findPointsByStoIdAndRound(point.getId());
+
         return pointList;
     }
 
