@@ -14,7 +14,7 @@ public interface PointService {
 
     void updatePoint(Long stoId, UpdatePointRequest updatePointRequest);
 
-    List<List<Float>> getGraphValue(Long stoId);
+    LtoGraphResponse getGraphValue(Long stoId);
 
     void deletePoint(Long stoId);
 

@@ -15,6 +15,8 @@ public interface StoService {
 
     List<Sto> getStoList();
 
+    List<Sto> getStoListByLtoId(Long ltoId);
+
     void deleteSto(Long stoId);
 
     List<String> updateImageList(Long stoId, UpdateImageList updateImageList);

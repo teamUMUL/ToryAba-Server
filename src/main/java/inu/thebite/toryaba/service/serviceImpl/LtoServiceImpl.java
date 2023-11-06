@@ -76,15 +76,15 @@ public class LtoServiceImpl implements LtoService {
 
     @Override
     public List<LtoGraphResponse> getLtoGraph(Long ltoId) {
-        ltoRepository.findById(ltoId)
+        Lto lto = ltoRepository.findById(ltoId)
                 .orElseThrow(() -> new IllegalStateException("해당 LTO가 존재하지 않습니다."));
 
-        List<Sto> stoList = stoService.getStoList();
+        List<Sto> stoList = stoService.getStoListByLtoId(lto.getId());
         List<LtoGraphResponse> result = new ArrayList<>();
 
         for(Sto sto : stoList) {
-            List<List<Float>> rateValue = pointService.getGraphValue(sto.getId());
-            result.add(LtoGraphResponse.response(sto.getId(), rateValue));
+            LtoGraphResponse response = pointService.getGraphValue(sto.getId());
+            result.add(response);
         }
         return result;
     }

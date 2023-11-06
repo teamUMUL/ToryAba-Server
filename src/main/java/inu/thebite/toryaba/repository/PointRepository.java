@@ -17,5 +17,5 @@ public interface PointRepository extends JpaRepository<Point, Long> {
 
     Optional<Point> findByStoIdAndRound(Long stoId, int round);
 
-    Point findByStoId(Long stoId);
+    List<Point> findAllByStoId(Long stoId);
 }
