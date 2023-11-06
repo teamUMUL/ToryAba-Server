@@ -85,11 +85,11 @@ public class PointServiceImpl implements PointService {
         List<String> date = new ArrayList<>();
         List<Point> points = pointRepository.findAllByStoId(stoId);
 
-        for(Point point : points) {
-            rateList.add(point.getPlusRate());
-            rateList.add(point.getMinusRate());
+        for(int i=0; i<points.size()-1; i++) {
+            rateList.add(points.get(i).getPlusRate());
+            rateList.add(points.get(i).getMinusRate());
 
-            date.add(point.getRegisterDate().substring(5, 10));
+            date.add(points.get(i).getRegisterDate().substring(5, 10));
         }
 
         LtoGraphResponse response = LtoGraphResponse.response(stoId, rateList, date);

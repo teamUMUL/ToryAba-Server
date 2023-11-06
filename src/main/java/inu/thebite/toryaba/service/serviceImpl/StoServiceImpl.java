@@ -123,7 +123,15 @@ public class StoServiceImpl implements StoService {
         List<Sto> stoList = stoRepository.findAll();
         return stoList;
     }
-    
+
+    @Override
+    public List<Sto> getStoListByLtoId(Long ltoId) {
+        Lto lto = ltoRepository.findById(ltoId)
+                .orElseThrow(() -> new IllegalStateException("해당하는 LTO가 존재하지 않습니다."));
+
+        List<Sto> stoList = stoRepository.findAllByLtoId(lto.getId());
+        return stoList;
+    }
 
     @Transactional
     @Override
