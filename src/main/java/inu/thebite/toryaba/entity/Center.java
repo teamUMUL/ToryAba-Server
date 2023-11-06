@@ -3,10 +3,12 @@ package inu.thebite.toryaba.entity;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 @Table(name = "tb_center")
 public class Center extends BaseEntity {
 
@@ -17,4 +19,14 @@ public class Center extends BaseEntity {
 
     @Column(name = "center_name", length = 45, nullable = false)
     private String name;
+
+    public static Center createCenter(String name) {
+        Center center = new Center();
+        center.name = name;
+        return center;
+    }
+
+    public void updateCenter(String name) {
+        this.name = name;
+    }
 }

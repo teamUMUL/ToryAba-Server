@@ -1,7 +1,8 @@
 package inu.thebite.toryaba.controller;
 
 import inu.thebite.toryaba.entity.Lto;
-import inu.thebite.toryaba.model.lto.AddLtoRequest;
+import inu.thebite.toryaba.model.lto.LtoGraphResponse;
+import inu.thebite.toryaba.model.lto.LtoRequest;
 import inu.thebite.toryaba.model.lto.UpdateLtoStatusRequest;
 import inu.thebite.toryaba.service.LtoService;
 import lombok.RequiredArgsConstructor;
@@ -18,32 +19,50 @@ public class LtoController {
     private final LtoService ltoService;
 
     // add LTO
-    @PostMapping("/{domainNumber}/lto/add")
-    public ResponseEntity<Lto> addLto(@PathVariable int domainNumber, @RequestBody AddLtoRequest addLtoRequest) {
-        Lto lto = ltoService.addLto(domainNumber,addLtoRequest);
-        return ResponseEntity.ok(lto);
+    @PostMapping("/{domainId}/ltos")
+    public Lto addLto(@PathVariable Long domainId, @RequestBody LtoRequest ltoRequest) {
+        Lto lto = ltoService.addLto(domainId, ltoRequest);
+        return lto;
     }
 
-    // modified LTO status
-    @PatchMapping("/{domainNumber}/lto/{ltoNumber}/update/status")
-    public ResponseEntity<Lto> updateStatus(@PathVariable int domainNumber,
-                                             @PathVariable int ltoNumber,
-                                             @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
-        Lto updateLto = ltoService.updateLtoStatus(domainNumber, ltoNumber, updateLtoStatusRequest);
-        return ResponseEntity.ok(updateLto);
+    // modified LTO status(stop, in progress)
+    @PatchMapping("/ltos/{ltoId}/status")
+    public Lto updateStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
+        Lto updateLto = ltoService.updateLtoStatus(ltoId, updateLtoStatusRequest);
+        return updateLto;
+    }
+
+    //modified LTO status(hit)
+    @PatchMapping("/ltos/{ltoId}/hit/status")
+    public Lto updateHitStatus(@PathVariable Long ltoId, @RequestBody UpdateLtoStatusRequest updateLtoStatusRequest) {
+        Lto updateLto = ltoService.updateLtoHitStatus(ltoId, updateLtoStatusRequest);
+        return updateLto;
+    }
+
+    // update LTO contents
+    @PatchMapping("/ltos/{ltoId}")
+    public Lto updateLto(@PathVariable Long ltoId, @RequestBody LtoRequest ltoRequest) {
+        Lto lto = ltoService.updateLto(ltoId, ltoRequest);
+        return lto;
     }
 
     // get LTO List
-    @GetMapping("/{domainNumber}/lto/list")
-    public ResponseEntity getLtoList(@PathVariable int domainNumber) {
-        List<Lto> ltoList = ltoService.getLtoList(domainNumber);
-        return ResponseEntity.ok(ltoList);
+    @GetMapping("/ltos")
+    public List<Lto> getLtoList() {
+        List<Lto> ltoList = ltoService.getLtoList();
+        return ltoList;
+    }
+
+    @GetMapping("/ltos/{ltoId}/graphs")
+    public List<LtoGraphResponse> getLtoGraph(@PathVariable Long ltoId) {
+        List<LtoGraphResponse> response = ltoService.getLtoGraph(ltoId);
+        return response;
     }
 
     // delete LTO
-    @DeleteMapping("{domainNumber}/lto/{ltoNumber}/delete")
-    public ResponseEntity deleteLto(@PathVariable int domainNumber, @PathVariable int ltoNumber) {
-        ltoService.deleteLto(domainNumber, ltoNumber);
+    @DeleteMapping("/ltos/{ltoId}")
+    public ResponseEntity deleteLto(@PathVariable Long ltoId) {
+        ltoService.deleteLto(ltoId);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
