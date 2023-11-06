@@ -4,7 +4,6 @@ import inu.thebite.toryaba.entity.Point;
 import inu.thebite.toryaba.entity.Sto;
 import inu.thebite.toryaba.model.lto.LtoGraphResponse;
 import inu.thebite.toryaba.model.point.AddPointRequest;
-import inu.thebite.toryaba.model.point.DeletePointRequest;
 import inu.thebite.toryaba.model.point.UpdatePointRequest;
 import inu.thebite.toryaba.repository.PointRepository;
 import inu.thebite.toryaba.repository.StoRepository;
@@ -13,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -77,19 +77,24 @@ public class PointServiceImpl implements PointService {
     }
 
     @Override
-    public List<List<Float>> getGraphValue(Long stoId) {
+    public LtoGraphResponse getGraphValue(Long stoId) {
         stoRepository.findById(stoId)
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
         List<Float> rateList = new ArrayList<>();
-        List<List<Float>> result = new ArrayList<>();
-        Point point = pointRepository.findByStoId(stoId);
-        rateList.add(point.getPlusRate());
-        rateList.add(point.getMinusRate());
+        List<String> date = new ArrayList<>();
+        List<Point> points = pointRepository.findAllByStoId(stoId);
 
-        result.add(rateList);
+        for(Point point : points) {
+            rateList.add(point.getPlusRate());
+            rateList.add(point.getMinusRate());
 
-        return result;
+            date.add(point.getRegisterDate().substring(5, 10));
+        }
+
+        LtoGraphResponse response = LtoGraphResponse.response(stoId, rateList, date);
+
+        return response;
     }
 
     @Override
@@ -98,7 +103,7 @@ public class PointServiceImpl implements PointService {
                 .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
 
         Point point = pointRepository.findByStoIdAndRound(stoId, sto.getRound())
-                .orElseThrow(() -> new IllegalStateException("해당하는 STO가 존재하지 않습니다."));
+                .orElseThrow(() -> new IllegalStateException("해당하는 Point가 존재하지 않습니다."));
 
         point.updateValue(plusRate, minusRate);
     }

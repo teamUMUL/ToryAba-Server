@@ -83,8 +83,8 @@ public class LtoServiceImpl implements LtoService {
         List<LtoGraphResponse> result = new ArrayList<>();
 
         for(Sto sto : stoList) {
-            List<List<Float>> rateValue = pointService.getGraphValue(sto.getId());
-            result.add(LtoGraphResponse.response(sto.getId(), rateValue));
+            LtoGraphResponse response = pointService.getGraphValue(sto.getId());
+            result.add(response);
         }
         return result;
     }
